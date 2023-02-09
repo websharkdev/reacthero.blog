@@ -1,0 +1,54 @@
+import { Box, Grid, Link as MuiLink, Tooltip, styled } from '@mui/material'
+import { memo, useEffect, useState } from 'react'
+
+import { getSocialMedia } from '@/shared/api/home.api'
+
+const Root = styled(Box)(({ theme }) => ({
+  height: 'max-content',
+  display: 'flex',
+  justifyContent: 'space-between',
+  flexDirection: 'column',
+  '& .social-media--divider': {
+    width: '100%',
+    height: 2,
+    background: theme.palette.primary.dark,
+    [theme.breakpoints.down('md')]: {
+      maxWidth: 64,
+    },
+    '&.light': {
+      background: theme.palette.primary.light,
+    },
+  },
+}))
+
+export const SocialMedia = memo(() => {
+  const [data, setData] = useState([])
+  useEffect(() => {
+    getSocialMedia().then((res: any) => {
+      setData(res.socialMedias)
+    })
+  }, [])
+
+  return (
+    <Root rowGap={4}>
+      <Box className="social-media--divider" />
+
+      <Grid container spacing={2}>
+        {data.map((socialMediaItem: any) => (
+          <Grid item key={socialMediaItem.id}>
+            <Tooltip title={socialMediaItem.title}>
+              <MuiLink
+                href={socialMediaItem.href}
+                className="social-media--item unstyled"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={socialMediaItem.icon.url} alt={socialMediaItem.icon.name} />
+              </MuiLink>
+            </Tooltip>
+          </Grid>
+        ))}
+      </Grid>
+    </Root>
+  )
+})

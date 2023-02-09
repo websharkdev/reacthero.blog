@@ -1,0 +1,32 @@
+body {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    position: relative;
+    /* firefox */
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+}
+
+.scroll-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    will-change: transform;
+    z-index: -3;
+
+}
+
+.item {
+    overflow: visible;
+    stroke: #2d2d2d;
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}

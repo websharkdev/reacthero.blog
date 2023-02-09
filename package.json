@@ -1,21 +1,64 @@
 {
+  "name": "react-nextjs-startpack",
+  "author": {
+    "email": "alexey.bortnytskyi@gmail.com",
+    "name": "Alexey Bortnytskyi | WebShark.dev"
+  },
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "format": "prettier --write \"**/*.+(ts|tsx|css|sass)\"",
+    "lint": "eslint --fix \"**/*.+(ts|tsx)\"",
+    "component": "npx generate-react-cli component",
+    "page": "npx generate-react-cli component --type=page"
   },
   "dependencies": {
-    "next": "latest",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/material": "^5.10.8",
+    "@reduxjs/toolkit": "^1.8.5",
+    "awesome-typescript-loader": "^5.2.1",
+    "framer-motion": "^7.6.12",
+    "graphql": "^16.6.0",
+    "graphql-request": "^5.1.0",
+    "html-react-parser": "^3.0.8",
+    "moment": "^2.29.4",
+    "next": "12.3.1",
+    "next-auth": "^4.12.3",
+    "prettier": "^2.7.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.36.1",
+    "react-intersection-observer": "^9.4.1",
+    "react-number-format": "^5.0.1",
+    "react-query": "^4.0.0",
+    "react-redux": "^8.0.4",
+    "react-typed": "^1.2.0",
+    "resize-observer-polyfill": "^1.5.1",
+    "sass": "^1.55.0",
+    "sharp": "^0.31.1",
+    "swiper": "^8.4.5",
+    "typescript": "^4.8.4"
   },
   "devDependencies": {
-    "@types/node": "17.0.4",
-    "@types/react": "17.0.38",
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.5",
-    "tailwindcss": "^3.0.7",
-    "typescript": "4.5.4"
+    "@svgr/webpack": "^6.4.0",
+    "@trivago/prettier-plugin-sort-imports": "^3.3.0",
+    "@types/node": "^18.8.2",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
+    "eslint": "8.24.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-next": "12.3.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react-hooks": "^4.6.0"
   }
 }
