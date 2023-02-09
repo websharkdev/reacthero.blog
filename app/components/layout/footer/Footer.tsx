@@ -2,7 +2,7 @@ import { Box, Grid, Link as MuiLink, Typography, styled } from '@mui/material'
 import Image from 'next/image'
 import { FC, useState } from 'react'
 import { useLanguage } from 'shared/hooks/useLanguage'
-import { LanguageProps, MenuItemProps } from 'shared/types/home'
+import { LanguageProps } from 'shared/types/home'
 
 import { user_data } from '@/components/screens/Home/data'
 
@@ -95,13 +95,13 @@ export const Footer: FC = (props: Props) => {
           <Grid item xs={12} md={6}>
             <Typography variant="h3">menu.</Typography>
             <Box className="footer-leftSide--divider" />
-            <Grid container mt={2.5} rowSpacing={3}>
+            {/* <Grid container mt={2.5} rowSpacing={3}>
               {menu.map((item: MenuItemProps) => (
                 <Grid item xs={6} key={item.id} className={`footer-menu--item ${styles.MenuItem}`}>
                   <MuiLink href={item.link}>{`${item.title}.`}</MuiLink>
                 </Grid>
               ))}
-            </Grid>
+            </Grid> */}
           </Grid>
           <Grid item xs={12} md={5}>
             <Box width={{ md: 220, xs: 220 }}>
@@ -122,7 +122,7 @@ export const Footer: FC = (props: Props) => {
       </Grid>
       <Grid item xs={12} md={4} className="footer-rightSide">
         <Grid container rowSpacing={4}>
-          <SocialMedia color="white" dividerColor="light" />
+          <SocialMedia />
           <Grid item xs={12}>
             <Box className="footer-rightSide--qrcodeBox">
               <MuiLink className="unstyled" href="https://www.buymeacoffee.com/webshark">
