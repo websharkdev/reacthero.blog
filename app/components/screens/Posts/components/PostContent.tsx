@@ -34,7 +34,7 @@ const PostTextContent = memo(({ data, variant }: any) => {
             {data?.children?.map((content: any, index: number) => (
               <Typography
                 key={`link__${index}`}
-                variant={variant ? variant : data.bold ? 'body2' : 'body1'}
+                variant={variant || (data.bold ? 'body2' : 'body1')}
                 sx={{
                   display: 'inline',
                   fontStyle: italic,
@@ -53,7 +53,7 @@ const PostTextContent = memo(({ data, variant }: any) => {
             <>
               {!isHasAChild && data.code ? (
                 <Typography
-                  variant={variant ? variant : data.bold ? 'body2' : 'body1'}
+                  variant={variant || (data.bold ? 'body2' : 'body1')}
                   sx={{
                     fontStyle: italic,
                     textDecoration: underline,
@@ -66,7 +66,7 @@ const PostTextContent = memo(({ data, variant }: any) => {
                 </Typography>
               ) : (
                 <Typography
-                  variant={variant ? variant : data.bold ? 'body2' : 'body1'}
+                  variant={variant || (data.bold ? 'body2' : 'body1')}
                   sx={{
                     fontStyle: italic,
                     textDecoration: underline,
@@ -168,7 +168,7 @@ export const PostContent: FC<Props> = ({ data }) => {
         ))}
       {/* image */}
       {data.type === rawTypeProps[1] && (
-        <Grid item xs={'auto'}>
+        <Grid item xs="auto">
           <img src={data.src} alt={data.title} />
         </Grid>
       )}
@@ -178,7 +178,7 @@ export const PostContent: FC<Props> = ({ data }) => {
         content.map((item: string, index: number) => (
           <Box key={`recursia__${index}`}>
             {item.trim().length ? (
-              <Typography component={'div'}>
+              <Typography component="div">
                 {item} — {looped}
               </Typography>
             ) : null}

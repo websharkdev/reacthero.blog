@@ -11,16 +11,14 @@ const Root = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(4),
 }))
 
-export const PreloaderWrapper = (props: Props) => {
-  return (
-    <Root container>
-      <Grid item className="preloader-container" xs={12}>
-        <Typography variant="h3" className="preloader-title" mr={4}>
-          reacthero.
-          <br />
-          blog.
-        </Typography>
-      </Grid>
-    </Root>
-  )
-}
+export const PreloaderWrapper = (props: Props) => (
+  <Root container>
+    <Grid item className="preloader-container" xs={12}>
+      <Typography variant="h3" className="preloader-title" mr={4}>
+        reacthero.
+        <br />
+        blog.
+      </Typography>
+    </Grid>
+  </Root>
+)

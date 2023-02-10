@@ -3,6 +3,8 @@ import { memo, useContext, useState } from 'react'
 
 import { home_data } from '@/components/screens/Home/data'
 
+import { LanguageProps } from '@/shared/types/home'
+
 import { UserLanguageContext } from '../Layout'
 
 const Root = styled(Menu)(({ theme }) => ({
@@ -31,7 +33,7 @@ const LanguageHandler = memo(() => {
   const { languages } = home_data
 
   return (
-    <Box width={'100%'}>
+    <Box width="100%">
       <Button
         sx={{ minWidth: 'max-content' }}
         disableRipple
@@ -58,7 +60,7 @@ const LanguageHandler = memo(() => {
           horizontal: 'center',
         }}
       >
-        {languages.map((item, id) => (
+        {/* {languages.map((item: LanguageProps, id: number) => (
           <MenuItem
             onClick={() => {
               languageProps.setLanguage(item)
@@ -70,7 +72,7 @@ const LanguageHandler = memo(() => {
           >
             {item}
           </MenuItem>
-        ))}
+        ))} */}
       </Root>
     </Box>
   )

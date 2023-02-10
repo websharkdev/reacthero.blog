@@ -42,22 +42,20 @@ const Wrapper = styled(Grid)(({ theme }) => ({
   },
 }))
 
-export const HeaderScroll: FC<Props> = (props) => {
-  return (
-    <Wrapper container direction="column" className={`${styles.HomeRotated}`}>
-      <Grid item sx={{ width: 'max-content' }} className={`${styles.HomeLanguageSwitch} rotated-item`}>
-        <LanguageHandler />
-      </Grid>
+export const HeaderScroll: FC<Props> = (props) => (
+  <Wrapper container direction="column" className={`${styles.HomeRotated}`}>
+    <Grid item sx={{ width: 'max-content' }} className={`${styles.HomeLanguageSwitch} rotated-item`}>
+      <LanguageHandler />
+    </Grid>
 
-      <Grid item sx={{ width: 'max-content' }} className={`home-scroll-down`}>
-        <Box className={`${styles.HomeScrollDown} rotated-item`}>
-          <Box className="home-scroll-down-square" />
+    <Grid item sx={{ width: 'max-content' }} className="home-scroll-down">
+      <Box className={`${styles.HomeScrollDown} rotated-item`}>
+        <Box className="home-scroll-down-square" />
 
-          <Typography className="home-scroll-down-text" variant="button">
-            scroll
-          </Typography>
-        </Box>
-      </Grid>
-    </Wrapper>
-  )
-}
+        <Typography className="home-scroll-down-text" variant="button">
+          scroll
+        </Typography>
+      </Box>
+    </Grid>
+  </Wrapper>
+)

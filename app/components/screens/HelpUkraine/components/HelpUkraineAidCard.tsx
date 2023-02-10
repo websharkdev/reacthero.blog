@@ -1,9 +1,8 @@
 import { Box, Grid, Link as MuiLink, Typography, styled } from '@mui/material'
 import { FC } from 'react'
-import { UkraineAidCardProps } from 'shared/types/home'
 
 type Props = {
-  data: UkraineAidCardProps
+  data: any
 }
 
 const Root = styled(Grid)(({ theme }) => ({

@@ -2,7 +2,6 @@ import { Box, Grid, Typography, styled } from '@mui/material'
 import Image from 'next/image'
 import { FC, useEffect, useState } from 'react'
 import { useWidth } from 'shared/hooks'
-import { UkraineAidCardProps, UkraineProps } from 'shared/types/home'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -14,7 +13,7 @@ import { HelpUkraineBlob } from '@/assets/icons/blobs'
 import { HelpUkraineAidCard } from './HelpUkraineAidCard'
 
 type Props = {
-  data: UkraineProps['financially']
+  data: any
 }
 
 const Root = styled(Grid)(({ theme }) => ({
@@ -86,7 +85,7 @@ export const HelpUkraineFinancially: FC<Props> = ({ data }) => {
             </Typography>
           </Grid>
           <Box className="help_financially-blob">
-            <Image src={HelpUkraineBlob} alt={'help Ukraine Blob'} />
+            <Image src={HelpUkraineBlob} alt="help Ukraine Blob" />
           </Box>
           <Grid item xs={12} md={4} className="help_financially-text-box">
             <Box className="help_financially-textDivider" />
@@ -102,7 +101,7 @@ export const HelpUkraineFinancially: FC<Props> = ({ data }) => {
             clickable: true,
           }}
         >
-          {aids.map((item: UkraineAidCardProps) => (
+          {aids.map((item: any) => (
             <SwiperSlide key={item.id} style={{ borderRadius: 4, overflow: 'hidden' }}>
               <HelpUkraineAidCard data={item} />
             </SwiperSlide>

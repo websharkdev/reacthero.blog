@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 const Favicons: FC = () => (
-  <React.Fragment>
+  <>
     <link rel="shortcut icon" href="/favicons/favicon.svg" type="image/x-icon" />
 
     <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png" />
@@ -13,7 +13,7 @@ const Favicons: FC = () => (
     <link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png" />
     <link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png" />
-  </React.Fragment>
+  </>
 )
 
 export default Favicons

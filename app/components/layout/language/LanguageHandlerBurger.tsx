@@ -15,8 +15,8 @@ const LanguageHandlerBurger = memo(({ setHideMenu }: Props) => {
   const { languages } = home_data
 
   return (
-    <Grid container width={'100%'}>
-      {languages.map((item, index) => (
+    <Grid container width="100%">
+      {/* {languages.map((item, index) => (
         <Grid item sx={{ display: 'flex', justifyContent: 'center' }} key={index} xs={12 / languages.length}>
           <Button
             size="small"
@@ -33,7 +33,7 @@ const LanguageHandlerBurger = memo(({ setHideMenu }: Props) => {
             {item}
           </Button>
         </Grid>
-      ))}
+      ))} */}
     </Grid>
   )
 })

@@ -72,9 +72,9 @@ export const PostItem: FC<Props> = ({ data }) => {
             }}
           >
             {like ? (
-              <Image src={LikeActiveIcon} alt={'active-like'} width={24} height={24} />
+              <Image src={LikeActiveIcon} alt="active-like" width={24} height={24} />
             ) : (
-              <Image src={LikeOnActiveIcon} alt={'onactive-like'} width={24} height={24} />
+              <Image src={LikeOnActiveIcon} alt="onactive-like" width={24} height={24} />
             )}
           </IconButton>
         </Grid>

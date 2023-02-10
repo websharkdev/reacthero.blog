@@ -16,10 +16,8 @@ const Root = styled(MuiLink)(({ theme }) => ({
   display: 'flex',
 }))
 
-export const QRCode: FC<Props> = ({ children, link, styles }) => {
-  return (
-    <Root href={link} className="unstyled" sx={styles}>
-      <Image src={children} alt="qr-code" />
-    </Root>
-  )
-}
+export const QRCode: FC<Props> = ({ children, link, styles }) => (
+  <Root href={link} className="unstyled" sx={styles}>
+    <Image src={children} alt="qr-code" />
+  </Root>
+)

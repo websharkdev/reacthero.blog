@@ -7,10 +7,8 @@ type Props = {}
 
 const Root = styled(Grid)(({ theme }) => ({}))
 
-export const TemplateName: FC<Props> = (props) => {
-  return (
-    <Root container className={styles.TemplateName}>
-      <Grid item>TemplateName</Grid>
-    </Root>
-  )
-}
+export const TemplateName: FC<Props> = (props) => (
+  <Root container className={styles.TemplateName}>
+    <Grid item>TemplateName</Grid>
+  </Root>
+)

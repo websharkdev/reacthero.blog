@@ -95,7 +95,7 @@ export const HeaderLaptop: FC<Props> = (props) => {
                   </Typography>
                 ))}
               </Grid>
-              <Typography component={'pre'} variant="body2" fontSize={12}>
+              <Typography component="pre" variant="body2" fontSize={12}>
                 <CodeBlock
                   text={`import { Grid, Typography, styled } from '@mui/material'
  type Props = {}

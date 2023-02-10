@@ -12,7 +12,7 @@ const Error404: NextPage = () => (
   <Meta title="Page not found">
     <Layout>
       <Box sx={{ width: '100%', position: 'relative', px: 6 }}>
-        <HeaderWrapper
+        {/* <HeaderWrapper
           subtitle="creative developer"
           photoBG={HeaderBG}
           position="background"
@@ -30,7 +30,7 @@ const Error404: NextPage = () => (
             </>
           }
           text="Some things went wrong. We can’t seem to find the page you’re looking for. Just go back."
-        />
+        /> */}
       </Box>
     </Layout>
   </Meta>

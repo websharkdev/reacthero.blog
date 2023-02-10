@@ -1,3 +1,3 @@
 import LogoIcon from './logo.svg'
 
-export { LogoIcon }
+export default LogoIcon

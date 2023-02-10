@@ -1,5 +1,3 @@
-import { ReactElement } from 'react'
-
 import ArrowIcon from './arrow.svg'
 import BurgerClosedIcon from './burger_closed.svg'
 // BURGER

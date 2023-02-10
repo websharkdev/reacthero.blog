@@ -10,10 +10,9 @@ import {
   useVelocity,
 } from 'framer-motion'
 import { memo, useRef } from 'react'
-import { ContactsItemProps } from 'shared/types/home'
 
 interface ParallaxProps {
-  data: ContactsItemProps[]
+  data: any
   baseVelocity: number
   fontSize?: number
   inView?: boolean
@@ -45,21 +44,19 @@ const ParallaxBody = styled(Box)(({ theme }) => ({
   },
 }))
 
-const ParallaxLinkChildren = (NumberOfSpan: number, data: ContactsItemProps[]) => {
-  return (
-    <>
-      {[...Array(NumberOfSpan)].map((e, i) => (
-        <span key={i}>
-          {data.map((item: ContactsItemProps) => (
-            <MuiLink href={item.href} key={item.id} mx={1.5} className={`parallax-link--children-item`}>
-              {item.name}
-            </MuiLink>
-          ))}
-        </span>
-      ))}
-    </>
-  )
-}
+const ParallaxLinkChildren = (NumberOfSpan: number, data: any) => (
+  <>
+    {[...Array(NumberOfSpan)].map((e, i) => (
+      <span key={i}>
+        {data.map((item: any) => (
+          <MuiLink href={item.href} key={item.id} mx={1.5} className="parallax-link--children-item">
+            {item.name}
+          </MuiLink>
+        ))}
+      </span>
+    ))}
+  </>
+)
 
 export const ParallaxLink = memo(({ data, baseVelocity = 100, fontSize, inView }: ParallaxProps) => {
   const baseX = useMotionValue(0)
