@@ -18,12 +18,10 @@ export const PostsWrapper: FC<Props> = () => {
   const url = useRouter()
   const [categoryData, setCategoryData] = useState<string[]>([])
   useEffect(() => {
-    if (url.query.slug) {
-      getCategoryPost(url.query.slug.toString()).then((res) => {
-        setCategoryData(res)
-        console.log(res)
-      })
-    }
+    getCategoryPost(url!.query!.slug!.toString()).then((res) => {
+      setCategoryData(res)
+      console.log(res)
+    })
   }, [])
 
   console.log(url.query.slug, categoryData)
