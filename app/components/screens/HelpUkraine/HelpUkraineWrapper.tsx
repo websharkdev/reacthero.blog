@@ -31,35 +31,7 @@ export const HelpUkraineWrapper: FC<Props> = (props) => {
   return (
     <Root container rowSpacing={10}>
       <Grid item xs={12}>
-        {/* <HeaderWrapper
-          subtitle={
-            <>
-              Ukraine.
-              <br />
-              War.
-              <br />
-              Genocide.
-            </>
-          }
-          photoBG={HeaderBG}
-          position="background"
-          shift="unstyled"
-          size={{
-            xs: [256, 256],
-            sm: [440, 440],
-            md: [500, 500],
-          }}
-          width={950}
-          title={
-            <>
-              Support Ukraine.
-              <br />
-              Stand with us!
-            </>
-          }
-          text={`While you're reading this page, Russia wages a genocidal war against Ukraine — destroying homes, ripping
-                apart families, and taking away lives. Be on the right side of history, help us defend our freedom!`}
-        /> */}
+        {/* <Hw */}
         <Divider />
       </Grid>
 

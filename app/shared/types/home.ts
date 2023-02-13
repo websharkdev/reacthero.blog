@@ -23,6 +23,7 @@ export type MenuItem = {
   id: string
   name: string
   slug: string
+  relate: string
 }
 
 export type ButtonProps = {

@@ -1,7 +1,8 @@
 import { Box, Grid, Link as MuiLink, styled } from '@mui/material'
+// import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 
-import { getCategories } from '@/shared/api/home.api'
+import { getCategories, getSimilarPosts } from '@/shared/api/home.api'
 import { MenuItem } from '@/shared/types/home'
 
 type Props = {
@@ -37,9 +38,15 @@ const Root = styled(Grid)(({ theme }) => ({
 
 export const MenuWrapper: FC<Props> = ({ variant = 'header' }) => {
   const [menu, setMenu] = useState<MenuItem[]>([])
-
+  const [uniq, setUniq] = useState<string[]>([])
   useEffect(() => {
-    getCategories().then((res: MenuItem[]) => setMenu(res))
+    getCategories().then((res: MenuItem[]) => {
+      setMenu(res)
+      console.log(res)
+
+      // @ts-ignore
+      setUniq([...new Set(res.map((item: MenuItem) => item.relate))])
+    })
   }, [])
   return (
     <Root rowGap={4} className={`${variant}-menu--wrapper`}>
@@ -51,10 +58,27 @@ export const MenuWrapper: FC<Props> = ({ variant = 'header' }) => {
       </Grid>
       <Grid item xs={6} sx={{ order: variant === 'footer' ? 100 : 0, display: 'flex', columnGap: 3 }}>
         <Box className="menu-wrapper--categories-divider" />
-        <Grid container rowGap={4}>
+        <Grid container rowGap={4} wrap="nowrap" direction="column">
+          {/* {uniq.map((prop: string, index: number) => (
+            <Grid item key={index}>
+              {prop}
+
+              <Grid container>
+                {menu.map((item: MenuItem) => (
+                  <>
+                    {item.relate === prop ? (
+                      <Grid item xs={12} ml={4} mt={4} key={item.id}>
+                        <MuiLink href={item.slug}>{item.name}</MuiLink>
+                      </Grid>
+                    ) : null}
+                  </>
+                ))}
+              </Grid>
+            </Grid>
+          ))} */}
           {menu.map((item: MenuItem) => (
-            <Grid item xs={10} key={item.id}>
-              <MuiLink href={item.slug}>{item.name}</MuiLink>
+            <Grid item xs={12} key={item.id}>
+              <MuiLink href={`/category/${item.slug}`}>{item.name}</MuiLink>
             </Grid>
           ))}
         </Grid>

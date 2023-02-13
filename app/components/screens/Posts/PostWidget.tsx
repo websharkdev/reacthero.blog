@@ -16,8 +16,14 @@ export const PostWidget: FC<Props> = ({ slug, categories }) => {
   const [relatedPost, setRelatedPost] = useState([])
 
   useEffect(() => {
+    // setRelatedPost(res)
+
+    console.log(slug, categories)
+
     if (slug) {
-      getSimilarPosts(categories, slug).then((res) => setRelatedPost(res))
+      getSimilarPosts(categories, slug).then((result) => {
+        setRelatedPost(result)
+      })
     } else {
       getRecentPosts().then((res: any) => setRelatedPost(res))
     }

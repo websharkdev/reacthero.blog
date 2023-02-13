@@ -53,7 +53,7 @@ export const PostItemWrapper: FC<Props> = ({ post }) => {
         </Grid>
       </Grid>
       {/* @ts-ignore */}
-      {/* <PostWidget categories={post.categories} slug={url.query.slug} /> */}
+      <PostWidget categories={post.categories.map((category) => category.slug)} slug={url.query.slug} />
     </Root>
   )
 }

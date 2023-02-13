@@ -28,6 +28,7 @@ export const getPosts = async () => {
               name
               id
               slug
+              relate
             }
             state
             id
@@ -47,6 +48,7 @@ export const getCategories = async () => {
         name
         slug
         id
+        relate
       }
     }
   `
@@ -101,7 +103,9 @@ export const getSimilarPosts = async (categories: string[], slug: string) => {
           url
         }
         id
+        excerpt
         createdAt
+        state
         slug
       }
     }
@@ -162,44 +166,45 @@ export const getSocialMedia = async () => {
 //   return { next: result.next[0], previous: result.previous[0] }
 // }
 
-// export const getCategoryPost = async (slug: string) => {
-//   const query = gql`
-//     query GetCategoryPost($slug: String!) {
-//       postsConnection(where: { categories_some: { slug: $slug } }) {
-//         edges {
-//           cursor
-//           node {
-//             author {
-//               bio
-//               name
-//               id
-//               photo {
-//                 url
-//               }
-//             }
-//             id
-//             createdAt
-//             slug
-//             title
-//             excerpt
-//             featuredImage {
-//               url
-//             }
-//             categories {
-//               id
-//               name
-//               slug
-//             }
-//           }
-//         }
-//       }
-//     }
-//   `
+export const getCategoryPost = async (slug: string) => {
+  const query = gql`
+    query GetCategoryPost($slug: String!) {
+      postsConnection(where: { categories_some: { slug: $slug } }) {
+        edges {
+          cursor
+          node {
+            author {
+              bio
+              name
+              id
+              photo {
+                url
+              }
+            }
+            id
+            createdAt
+            slug
+            title
+            excerpt
+            state
+            featuredImage {
+              url
+            }
+            categories {
+              id
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
+  `
 
-//   const result = await request(graphqlAPI!, query, { slug })
+  const result = await request(graphqlAPI!, query, { slug })
 
-//   return result.postsConnection.edges
-// }
+  return result.postsConnection.edges
+}
 
 export const getFeaturedPosts = async () => {
   const query = gql`
