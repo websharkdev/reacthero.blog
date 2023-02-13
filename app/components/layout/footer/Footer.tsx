@@ -1,15 +1,11 @@
 import { Box, Grid, Link as MuiLink, Typography, styled } from '@mui/material'
 import Image from 'next/image'
-import { FC, useState } from 'react'
-import { useLanguage } from 'shared/hooks/useLanguage'
-import { LanguageProps } from 'shared/types/home'
-
-import { user_data } from '@/components/screens/Home/data'
+import { FC } from 'react'
 
 import { buyMeACoffeQR } from '@/assets/icons/ui'
 
 import { SocialMedia } from '../SocialMedia'
-import styles from '../layout.module.sass'
+import { MenuWrapper } from '../header/MenuWrapper'
 
 type Props = {}
 
@@ -75,37 +71,19 @@ const Root = styled(Grid)(({ theme }) => ({
   },
 }))
 
-export const Footer: FC = (props: Props) => {
-  const [language, setLanguage] = useState<LanguageProps>('en')
-  const [data, setData] = useState(user_data)
-
-  useLanguage({
-    dataEN: user_data,
-    dataRU: user_data,
-    setData,
-    language,
-    setLanguage,
-  })
-
-  const { menu, fio } = data
+export const Footer: FC<Props> = () => {
   return (
     <Root container>
       <Grid item xs={12} md={8} className="footer-leftSide">
         <Grid container rowSpacing={{ xs: 8, md: 6 }} columnSpacing={{ xs: 0, md: 4 }}>
           <Grid item xs={12} md={6}>
             <Typography variant="h3">menu.</Typography>
-            <Box className="footer-leftSide--divider" />
-            {/* <Grid container mt={2.5} rowSpacing={3}>
-              {menu.map((item: MenuItemProps) => (
-                <Grid item xs={6} key={item.id} className={`footer-menu--item ${styles.MenuItem}`}>
-                  <MuiLink href={item.link}>{`${item.title}.`}</MuiLink>
-                </Grid>
-              ))}
-            </Grid> */}
+            <Box className="footer-leftSide--divider" mb={4} />
+            <MenuWrapper variant="footer" />
           </Grid>
           <Grid item xs={12} md={5}>
             <Box width={{ md: 220, xs: 220 }}>
-              <Typography variant="h3">{fio}</Typography>
+              <Typography variant="h3">Bortnytskyi Olexii</Typography>
               <Box className="footer-leftSide--divider" />
               <Typography variant="body2" fontWeight={600} mt={3}>
                 designer, developer, creator, and just a cool pepper.
