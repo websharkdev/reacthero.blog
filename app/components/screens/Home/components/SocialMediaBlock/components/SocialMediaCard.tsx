@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, styled } from '@mui/material'
+import { Box, Grid, Link, Typography, styled } from '@mui/material'
 import React, { FC, useEffect, useState } from 'react'
 
 type Props = {
@@ -16,7 +16,7 @@ const Root = styled(Grid)(({ theme }) => ({
 export const SocialMediaCard: FC<Props> = ({ data }) => {
   const { title, text, featured, links } = data
   return (
-    <Root container className={featured ? 'featured' : undefined}>
+    <Root container className={featured ? 'featured' : undefined} direction="column">
       <Grid item mb={3}>
         <Box sx={{ position: 'relative', width: 'max-content' }}>
           {featured && (
@@ -35,7 +35,20 @@ export const SocialMediaCard: FC<Props> = ({ data }) => {
         </Box>
       </Grid>
       <Grid item>
-        <Typography variant="body1">{text}</Typography>
+        {text?.length > 0 ? (
+          <Typography variant="body1">{text}</Typography>
+        ) : links?.length > 0 ? (
+          <Grid container wrap="nowrap" direction="column">
+            {links.map((link: any) => (
+              <Grid item xs={12} key={link.id}>
+                <span>—</span>
+                <Link ml={2} href={link.link} target="_blank" rel="noopener noreferrer">
+                  {link.title}
+                </Link>
+              </Grid>
+            ))}
+          </Grid>
+        ) : null}
       </Grid>
     </Root>
   )
