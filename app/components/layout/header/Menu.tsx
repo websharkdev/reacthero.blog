@@ -22,6 +22,7 @@ const Root = styled(Grid)(({ theme }) => ({
   justifyContent: 'space-between',
   position: 'sticky',
   top: 0,
+  right: 0,
   '&.unstyled': {
     maxHeight: '100vh',
     position: 'relative',

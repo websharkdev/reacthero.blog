@@ -42,7 +42,6 @@ export const MenuWrapper: FC<Props> = ({ variant = 'header' }) => {
   useEffect(() => {
     getCategories().then((res: MenuItem[]) => {
       setMenu(res)
-      console.log(res)
 
       // @ts-ignore
       setUniq([...new Set(res.map((item: MenuItem) => item.relate))])

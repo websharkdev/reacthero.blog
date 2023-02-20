@@ -6,21 +6,23 @@ import { LikeActiveIcon, LikeOnActiveIcon } from '@/assets/icons/ui'
 
 type Props = {
   data: any
+  setTag: (tag: string) => void
+  tag: string
 }
 
 const Root = styled(Grid)(({ theme }) => ({
   width: '100%',
   background: '#fff',
   padding: theme.spacing(4),
+  height: 'max-content',
   position: 'relative',
+  zIndex: 10,
 }))
 
-export const PostItem: FC<Props> = ({ data }) => {
+export const PostItem: FC<Props> = ({ data, setTag, tag }) => {
   const [like, setLike] = useState<boolean>(false)
 
   const handleLike = () => {
-    console.log(data.id)
-
     setLike(!like)
   }
   return (
@@ -39,11 +41,19 @@ export const PostItem: FC<Props> = ({ data }) => {
             position: 'absolute',
             left: -50,
             bottom: -50,
-            zIndex: -1,
+            zIndex: 2,
           },
         }}
       >
-        <img src={data.featuredImage.url} alt={data.slug} width="100%" />
+        <img
+          src={data.featuredImage.url}
+          alt={data.slug}
+          width="100%"
+          style={{
+            position: 'relative',
+            zIndex: 11,
+          }}
+        />
       </Box>
       <Root container rowSpacing={4}>
         <Grid
@@ -52,17 +62,29 @@ export const PostItem: FC<Props> = ({ data }) => {
           sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0 !important' }}
         >
           <Typography variant="h6">{data.title}</Typography>
-          <Chip label={data.state} />
+          <Box>
+            {data.hashtag?.map((tag: any) => (
+              <Chip
+                label={`#${tag.tag}`}
+                key={tag.id}
+                sx={{ mr: 1.5 }}
+                className="default"
+                onClick={() => console.log(tag.tag)}
+              />
+            ))}
+          </Box>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="body2" sx={{ minHeight: 86 }}>
+          <Typography variant="body2" sx={{ minHeight: 156 }}>
             {data.excerpt.length > 175 ? `${data.excerpt.slice(0, 175)}...` : data.excerpt}
           </Typography>
         </Grid>
+
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Button variant="text" href={`post/${data.slug}`}>
+          <Button variant="text" href={`/post/${data.slug}`}>
             риад море.
           </Button>
+
           <IconButton
             onClick={handleLike}
             sx={{

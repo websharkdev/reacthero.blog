@@ -12,6 +12,7 @@ type Props = {
 }
 
 const Root = styled(Box)(({ theme }) => ({
+  height: 'max-content',
   '& .code': {
     background: '#f6f6f6',
     border: '1px solid #ccc',

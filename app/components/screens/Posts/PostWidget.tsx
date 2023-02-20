@@ -1,7 +1,7 @@
 import { Grid, styled } from '@mui/material'
 import { FC, useEffect, useState } from 'react'
 
-import { getRecentPosts, getSimilarPosts } from '@/shared/api/home.api'
+import { getPostDetails, getPosts, getRecentPosts, getSimilarPosts } from '@/shared/api/home.api'
 
 import { PostItem } from './components'
 
@@ -16,10 +16,6 @@ export const PostWidget: FC<Props> = ({ slug, categories }) => {
   const [relatedPost, setRelatedPost] = useState([])
 
   useEffect(() => {
-    // setRelatedPost(res)
-
-    console.log(slug, categories)
-
     if (slug) {
       getSimilarPosts(categories, slug).then((result) => {
         setRelatedPost(result)
@@ -30,12 +26,30 @@ export const PostWidget: FC<Props> = ({ slug, categories }) => {
   }, [])
 
   return (
-    <Root container>
+    <Root container spacing={12}>
       {relatedPost.map((post: any) => (
-        <Grid item xs={4} key={post.id}>
+        <Grid item xs={6} key={post.id}>
           <PostItem data={post} />
         </Grid>
       ))}
     </Root>
   )
+}
+
+// Fetch data at build time
+export async function getStaticProps({ params }: any) {
+  const data = await getPostDetails(params.slug)
+  return {
+    props: {
+      post: data,
+    },
+  }
+}
+
+export async function getStaticPaths() {
+  const posts = await getPosts()
+  return {
+    paths: posts.map(({ node: { slug } }: any) => ({ params: { slug } })),
+    fallback: true,
+  }
 }

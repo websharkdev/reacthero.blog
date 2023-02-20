@@ -20,6 +20,7 @@ const Root = styled(Grid)(({ theme }) => ({
   background: '#D5E4F2',
   padding: theme.spacing(8),
   height: 'max-content',
+  marginBottom: theme.spacing(12),
   '& .post_item-details--image': {
     width: '100%',
   },
@@ -28,8 +29,10 @@ const Root = styled(Grid)(({ theme }) => ({
 export const PostItemWrapper: FC<Props> = ({ post }) => {
   const url = useRouter()
   const [categoryData, setCategoryData] = useState<MenuItem[]>([])
+  const [currentCategory, setCurrentCategory] = useState<string[]>([])
   useEffect(() => {
     getCategories().then((res) => setCategoryData(res))
+    post.categories.forEach((category) => setCurrentCategory([...currentCategory, category.slug]))
   }, [])
   return (
     <Root container rowSpacing={4}>
@@ -44,7 +47,7 @@ export const PostItemWrapper: FC<Props> = ({ post }) => {
         <Typography variant="h2">{post.title}</Typography>
       </Grid>
       <Grid item xs={12}>
-        <Grid container rowSpacing={2}>
+        <Grid container rowSpacing={2} sx={{ height: 'max-content' }}>
           {post.content.raw.children.map((content: any, index: number) => (
             <Grid item xs={12} key={`${post.id}_${index}`}>
               <PostContent data={content} />
@@ -52,8 +55,12 @@ export const PostItemWrapper: FC<Props> = ({ post }) => {
           ))}
         </Grid>
       </Grid>
-      {/* @ts-ignore */}
-      <PostWidget categories={post.categories.map((category) => category.slug)} slug={url.query.slug} />
+      {/* {post.categories.map((category) => {
+        console.log(category.slug)
+        
+      })} */}
+
+      {/* <PostWidget categories={currentCategory} slug={url.query.slug} /> */}
     </Root>
   )
 }

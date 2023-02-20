@@ -7,7 +7,7 @@ import styles from '@/screens/Home/home.module.sass'
 
 import { getRecentPosts } from '@/shared/api/home.api'
 
-import { HomeHeader, HomePosts } from './components'
+import { HomeHeader, HomePosts, IntroWrapper, SocialMediaWrapper } from './components'
 
 // import { user_data } from './data'
 
@@ -47,8 +47,14 @@ export const Home: FC<Props> = (props) => {
       <Grid item xs={12} className="container-fluid">
         <HomeHeader />
       </Grid>
+      <Grid item xs={12} className="container">
+        <IntroWrapper />
+      </Grid>
       <Grid item xs={12} className="container-fluid">
         <HomePosts data={data} />
+      </Grid>
+      <Grid item xs={12} className="container">
+        <SocialMediaWrapper />
       </Grid>
     </Root>
   )
