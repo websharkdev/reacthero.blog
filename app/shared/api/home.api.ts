@@ -21,10 +21,6 @@ export const getPosts = async () => {
             slug
             title
             excerpt
-            hashtag {
-              id
-              tag
-            }
             featuredImage {
               url
             }
@@ -78,11 +74,6 @@ export const getPostDetails = async (slug: string) => {
             url
           }
         }
-
-        hashtag {
-          id
-          tag
-        }
         createdAt
         slug
         content {
@@ -115,10 +106,6 @@ export const getSimilarPosts = async (categories: string[], slug: string) => {
         createdAt
 
         slug
-        hashtag {
-          id
-          tag
-        }
       }
     }
   `
@@ -178,49 +165,6 @@ export const getSocialMedia = async () => {
 //   return { next: result.next[0], previous: result.previous[0] }
 // }
 
-export const getPostByHashtag = async (tag: string) => {
-  const query = gql`
-    query GetHashtagPost($tag: String!) {
-      postsConnection(where: { hashtag_some: { tag_contains: $tag } }) {
-        edges {
-          cursor
-          node {
-            author {
-              bio
-              name
-              id
-              photo {
-                url
-              }
-            }
-            id
-            createdAt
-            slug
-            title
-            excerpt
-            featuredImage {
-              url
-            }
-            hashtag {
-              id
-              tag
-            }
-            categories {
-              id
-              name
-              slug
-            }
-          }
-        }
-      }
-    }
-  `
-
-  const result = await request(graphqlAPI!, query, { tag })
-
-  return result.postsConnection.edges
-}
-
 export const getCategoryPost = async (slug: string) => {
   const query = gql`
     query GetCategoryPost($slug: String!) {
@@ -243,10 +187,6 @@ export const getCategoryPost = async (slug: string) => {
             excerpt
             featuredImage {
               url
-            }
-            hashtag {
-              id
-              tag
             }
             categories {
               id
@@ -277,11 +217,6 @@ export const getFeaturedPosts = async () => {
         featuredImage {
           url
         }
-        
-            hashtag {
-              id
-              tag
-            }
         id
         title
         slug
@@ -338,10 +273,6 @@ export const getRecentPosts = async () => {
         excerpt
         createdAt
         slug
-        hashtag {
-          id
-          tag
-        }
       }
     }
   `

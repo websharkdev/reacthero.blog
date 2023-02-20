@@ -13,7 +13,6 @@ const Root = styled(Grid)(({ theme }) => ({
 }))
 
 export const HomePosts: FC<Props> = ({ data }) => {
-  const [tag, setTag] = useState<string>('')
   return (
     <Root container columnSpacing={12} alignItems="center" rowSpacing={10}>
       <Grid item xs={12}>
@@ -22,7 +21,7 @@ export const HomePosts: FC<Props> = ({ data }) => {
       {data.length > 0 &&
         data.map((post: any) => (
           <Grid item xs={12} md={4} key={post.createdAt}>
-            <PostItem data={post} setTag={setTag} tag={tag} />
+            <PostItem data={post} />
           </Grid>
         ))}
       <Grid item xs={12}>

@@ -6,8 +6,6 @@ import { LikeActiveIcon, LikeOnActiveIcon } from '@/assets/icons/ui'
 
 type Props = {
   data: any
-  setTag: (tag: string) => void
-  tag: string
 }
 
 const Root = styled(Grid)(({ theme }) => ({
@@ -19,7 +17,7 @@ const Root = styled(Grid)(({ theme }) => ({
   zIndex: 10,
 }))
 
-export const PostItem: FC<Props> = ({ data, setTag, tag }) => {
+export const PostItem: FC<Props> = ({ data }) => {
   const [like, setLike] = useState<boolean>(false)
 
   const handleLike = () => {
@@ -62,17 +60,6 @@ export const PostItem: FC<Props> = ({ data, setTag, tag }) => {
           sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0 !important' }}
         >
           <Typography variant="h6">{data.title}</Typography>
-          <Box>
-            {data.hashtag?.map((tag: any) => (
-              <Chip
-                label={`#${tag.tag}`}
-                key={tag.id}
-                sx={{ mr: 1.5 }}
-                className="default"
-                onClick={() => console.log(tag.tag)}
-              />
-            ))}
-          </Box>
         </Grid>
         <Grid item xs={12}>
           <Typography variant="body2" sx={{ minHeight: 156 }}>
