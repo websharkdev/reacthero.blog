@@ -30,7 +30,6 @@ export const getPosts = async () => {
               slug
               relate
             }
-            state
             id
           }
         }
@@ -105,7 +104,7 @@ export const getSimilarPosts = async (categories: string[], slug: string) => {
         id
         excerpt
         createdAt
-        state
+
         slug
       }
     }
@@ -186,7 +185,6 @@ export const getCategoryPost = async (slug: string) => {
             slug
             title
             excerpt
-            state
             featuredImage {
               url
             }
@@ -219,6 +217,7 @@ export const getFeaturedPosts = async () => {
         featuredImage {
           url
         }
+  
         id
         title
         slug
@@ -273,7 +272,6 @@ export const getRecentPosts = async () => {
         }
         id
         excerpt
-        state
         createdAt
         slug
       }
