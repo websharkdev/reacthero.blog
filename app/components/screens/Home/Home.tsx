@@ -1,13 +1,11 @@
-import { Box, Button, Divider, Grid, Link, Typography, styled } from '@mui/material'
+import { Grid, styled } from '@mui/material'
 import { FC, useEffect, useState } from 'react'
-import { useLanguage } from 'shared/hooks/useLanguage'
-import { LanguageProps } from 'shared/types/home'
 
 import styles from '@/screens/Home/home.module.sass'
 
 import { getRecentPosts } from '@/shared/api/home.api'
 
-import { HomeHeader, HomePosts, IntroWrapper, SocialMediaWrapper } from './components'
+import { BuyMeACoffeWrapper, HomeHeader, HomePosts, IntroWrapper, SocialMediaWrapper } from './components'
 
 // import { user_data } from './data'
 
@@ -55,6 +53,9 @@ export const Home: FC<Props> = (props) => {
       </Grid>
       <Grid item xs={12} className="container">
         <SocialMediaWrapper />
+      </Grid>
+      <Grid item xs={12} className="container">
+        <BuyMeACoffeWrapper />
       </Grid>
     </Root>
   )
