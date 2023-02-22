@@ -7,8 +7,11 @@ import DotsIcon from './dots.svg'
 // SocialMedia
 import GitHubIcon from './github.svg'
 import InstagramIcon from './instagram.svg'
-import LikeActiveIcon from './like_active.png'
-import LikeOnActiveIcon from './like_onactive.png'
+import LikeActiveIcon from './like_active.svg'
+import LikeEmptyIcon from './like_empty.svg'
+import LikeOnActiveIcon from './like_onactive.svg'
+import LinkIcon from './link.svg'
+import LinkedInIcon from './linkedin.svg'
 import MinusIcon from './minus.svg'
 import MobileSignalIcon from './mobile_signal.svg'
 import TelegramIcon from './telegram.svg'
@@ -19,8 +22,11 @@ export {
   WiFiIcon,
   MobileSignalIcon,
   ArrowIcon,
+  LinkIcon,
   GitHubIcon,
+  LinkedInIcon,
   LikeActiveIcon,
+  LikeEmptyIcon,
   LikeOnActiveIcon,
   InstagramIcon,
   TelegramIcon,

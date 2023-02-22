@@ -1,10 +1,9 @@
-import { Grid, Typography, styled } from '@mui/material'
-import { useRouter } from 'next/router'
+import { Box, Divider, Grid, Rating, Typography, styled } from '@mui/material'
 import { FC, useEffect, useState } from 'react'
 
-import { getCategories } from '@/shared/api/home.api'
-import { MenuItem, PostItemDetailsProps } from '@/shared/types/home'
+import { PostItemDetailsProps } from '@/shared/types/home'
 
+import { PostAutor, PostLinks } from './components'
 import { PostContent, PostWidget } from './index'
 
 type Props = {
@@ -16,9 +15,8 @@ const Root = styled(Grid)(({ theme }) => ({
   margin: '0 auto',
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'center',
   background: '#D5E4F2',
-  padding: theme.spacing(8),
+  padding: theme.spacing(4.5),
   height: 'max-content',
   marginBottom: theme.spacing(12),
   '& .post_item-details--image': {
@@ -27,24 +25,49 @@ const Root = styled(Grid)(({ theme }) => ({
 }))
 
 export const PostItemWrapper: FC<Props> = ({ post }) => {
-  const url = useRouter()
-  const [categoryData, setCategoryData] = useState<MenuItem[]>([])
   const [currentCategory, setCurrentCategory] = useState<string[]>([])
+  const [value, setValue] = useState<number | null>(4.5)
   useEffect(() => {
-    getCategories().then((res) => setCategoryData(res))
-    post.categories.forEach((category) => setCurrentCategory([...currentCategory, category.slug]))
+    const arr: string[] = []
+    post.categories.map((category) => {
+      arr.push(category.slug)
+    })
+
+    arr.length > 0 ? setCurrentCategory(arr) : null
   }, [])
+
   return (
     <Root container rowSpacing={4}>
-      <Grid item xs={12}>
+      <Grid item xs={12} sx={{ pt: '0 !important' }}>
         <img
           src={post.featuredImage.url}
           alt={`${post.title.split(' ').join('_')}--image`}
           className="post_item-details--image"
         />
       </Grid>
-      <Grid item xs={12}>
-        <Typography variant="h2">{post.title}</Typography>
+      <Grid item>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography variant="h2" sx={{ mb: 4 }}>
+            {post.title}
+          </Typography>
+          <Box
+            sx={{
+              mb: 4,
+              gap: 2,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            <Typography variant="body2">
+              ~{Math.ceil(JSON.stringify(post.content.raw).trim().split(/\s+/).length / 155)} min. read
+            </Typography>
+            <PostLinks />
+          </Box>
+        </Box>
+
+        <Divider />
       </Grid>
       <Grid item xs={12}>
         <Grid container rowSpacing={2} sx={{ height: 'max-content' }}>
@@ -55,12 +78,31 @@ export const PostItemWrapper: FC<Props> = ({ post }) => {
           ))}
         </Grid>
       </Grid>
-      {/* {post.categories.map((category) => {
-        console.log(category.slug)
-        
-      })} */}
 
-      {/* <PostWidget categories={currentCategory} slug={url.query.slug} /> */}
+      <Grid item xs={12}>
+        <Grid container rowSpacing={6} justifyContent="space-between" alignItems="center">
+          <Grid item xs={12} children={<Divider />} />
+          <Grid item xs="auto" children={<PostAutor data={post} />} />
+          <Grid item xs="auto">
+            <Rating
+              name="simple-controlled"
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue)
+              }}
+              getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
+              precision={0.5}
+            />
+
+            <PostLinks />
+          </Grid>
+          <Grid item xs={12} children={<Divider />} />
+        </Grid>
+      </Grid>
+
+      <Grid item xs={12} mt={6}>
+        <PostWidget categories={currentCategory} slug={currentCategory[0]} />
+      </Grid>
     </Root>
   )
 }

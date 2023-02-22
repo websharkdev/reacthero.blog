@@ -42,7 +42,7 @@ export const Home: FC<Props> = (props) => {
 
   return (
     <Root container rowSpacing={10} className={styles.Wrapper}>
-      <Grid item xs={12} className="container-fluid">
+      <Grid item xs={12} className="container-fluid" sx={{ pt: '0 !important' }}>
         <HomeHeader />
       </Grid>
       <Grid item xs={12} className="container">

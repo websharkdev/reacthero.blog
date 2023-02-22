@@ -21,7 +21,7 @@ export const PostWidget: FC<Props> = ({ slug, categories }) => {
         setRelatedPost(result)
       })
     } else {
-      getRecentPosts().then((res: any) => setRelatedPost(res))
+      getRecentPosts().then((result) => setRelatedPost(result))
     }
   }, [])
 

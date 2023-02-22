@@ -8,7 +8,7 @@ const nextConfig = {
   swcMinify: true,
 
   images: {
-    domains: ['images.unsplash.com', 'cdn.svgporn.com', 'via.placeholder.com'],
+    domains: ['images.unsplash.com', 'cdn.svgporn.com', 'via.placeholder.com', 'media.graphassets.com'],
   },
 }
 

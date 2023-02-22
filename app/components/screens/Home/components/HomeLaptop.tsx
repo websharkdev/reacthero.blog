@@ -67,7 +67,7 @@ export const HeaderLaptop: FC<Props> = (props) => {
   ]
   return (
     <Root container className="laptop">
-      <Grid item xs={12} minHeight={600}>
+      <Grid item xs={12} minHeight={{ xs: 600, md: '50vw' }}>
         <Box className="display">
           <Box className="code">
             <Box className="actions" sx={{ display: 'flex', gap: 1, mb: 2.5 }}>
@@ -90,12 +90,12 @@ export const HeaderLaptop: FC<Props> = (props) => {
                 sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mr: 3 }}
               >
                 {[...Array(linesCounter)].map((e, i) => (
-                  <Typography variant="body2" sx={{ color: '#3B3855', fontSize: 12 }} key={i}>
+                  <Typography variant="body2" sx={{ color: '#3B3855', fontSize: { lg: 10, xl: 12 } }} key={i}>
                     {i + 1}
                   </Typography>
                 ))}
               </Grid>
-              <Typography component="pre" variant="body2" fontSize={12}>
+              <Typography component="pre" variant="body2" sx={{ fontSize: { xl: 12, md: 10 } }}>
                 <CodeBlock
                   text={`import { Grid, Typography, styled } from '@mui/material'
  type Props = {}

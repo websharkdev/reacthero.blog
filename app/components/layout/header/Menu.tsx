@@ -1,4 +1,4 @@
-import { Grid, Typography, styled } from '@mui/material'
+import { Divider, Grid, Typography, styled } from '@mui/material'
 import { FC } from 'react'
 
 import { MenuQR } from '@/assets/icons/photos/qr-codes'
@@ -18,7 +18,7 @@ const Root = styled(Grid)(({ theme }) => ({
   background: theme.palette.background.paper,
   height: 'max-content',
   minHeight: '100vh',
-  padding: theme.spacing(10),
+  padding: `${theme.spacing(4)} ${theme.spacing(8)}`,
   justifyContent: 'space-between',
   position: 'sticky',
   top: 0,
@@ -31,14 +31,14 @@ const Root = styled(Grid)(({ theme }) => ({
 
 export const Menu: FC<Props> = ({ unstyled = true }) => {
   return (
-    <Root container wrap="nowrap" direction="column" className={unstyled ? 'unstyled' : undefined}>
+    <Root container wrap="nowrap" direction="column" rowSpacing={5} className={unstyled ? 'unstyled' : undefined}>
       <Grid item>
         <Logo animated={false} />
       </Grid>
       <Grid item>
         <MenuWrapper />
       </Grid>
-      <Grid item sx={{ display: 'flex', alignItems: 'flex-end' }}>
+      <Grid item>
         <Grid container columnSpacing={4} justifyContent="space-between" sx={{ width: '100%' }}>
           <Grid item xs={8}>
             <Typography variant="body2" mb={2}>

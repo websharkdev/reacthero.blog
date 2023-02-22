@@ -8,7 +8,7 @@ import { getPostDetails, getPosts } from '@/shared/api/home.api'
 import Meta from '@/utils/meta/Meta'
 
 const PostPage: NextPage = ({ post }: any) => (
-  <Meta title="Posts Page">
+  <Meta title={`${post.title}`}>
     <MenuLayout>
       <PostItemWrapper post={post} />
     </MenuLayout>
