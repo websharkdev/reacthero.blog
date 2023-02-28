@@ -270,6 +270,13 @@ export const getRecentPosts = async () => {
           url
         }
         id
+        hashtag {
+          id
+          tag
+        }
+        content {
+          text
+        }
         excerpt
         createdAt
         slug

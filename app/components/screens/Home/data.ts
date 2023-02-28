@@ -40,7 +40,7 @@ export const myAge = Math.floor((new Date() - new Date('19 Jun 2003')) / (60 * 6
 
 export const user_data = {
   fio: '',
-  header_fio: 'Bortnytskyi. Alexey',
+  header_fio: 'Bortnytskyi. Oleksii',
   logoName: 'webshark.translate',
   menu: [
     {

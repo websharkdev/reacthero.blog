@@ -1,5 +1,10 @@
-import { Grid, styled } from '@mui/material'
+import { Grid, styled, useMediaQuery } from '@mui/material'
 import { FC, useEffect, useState } from 'react'
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/pagination'
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { getPostDetails, getPosts, getRecentPosts, getSimilarPosts } from '@/shared/api/home.api'
 
@@ -14,6 +19,10 @@ const Root = styled(Grid)(({ theme }) => ({}))
 
 export const PostWidget: FC<Props> = ({ slug, categories }) => {
   const [relatedPost, setRelatedPost] = useState([])
+  const tablet = useMediaQuery((theme) =>
+    // @ts-ignore
+    theme.breakpoints.down('lg')
+  )
 
   useEffect(() => {
     if (slug) {
@@ -26,13 +35,25 @@ export const PostWidget: FC<Props> = ({ slug, categories }) => {
   }, [])
 
   return (
-    <Root container spacing={12}>
-      {relatedPost.map((post: any) => (
-        <Grid item xs={6} key={post.id}>
-          <PostItem data={post} />
-        </Grid>
-      ))}
-    </Root>
+    <>
+      {tablet ? (
+        <Swiper className="mySwiper">
+          {relatedPost.map((post: any) => (
+            <SwiperSlide key={post.id}>
+              <PostItem data={post} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        <Root container rowSpacing={12} columnSpacing={{ md: 12, xs: 0 }}>
+          {relatedPost.map((post: any) => (
+            <Grid item xs={12} md={6} key={post.id}>
+              <PostItem data={post} />
+            </Grid>
+          ))}
+        </Root>
+      )}
+    </>
   )
 }
 

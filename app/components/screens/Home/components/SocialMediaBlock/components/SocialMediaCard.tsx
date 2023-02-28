@@ -1,5 +1,5 @@
 import { Box, Grid, Link, Typography, styled } from '@mui/material'
-import React, { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 
 type Props = {
   data: any
@@ -8,6 +8,8 @@ type Props = {
 const Root = styled(Grid)(({ theme }) => ({
   padding: `${theme.spacing(4)}`,
   background: '#D5E4F2',
+  height: '100%',
+  flexWrap: 'nowrap',
   '&.featured': {
     background: theme.palette.background.paper,
   },
@@ -17,8 +19,8 @@ export const SocialMediaCard: FC<Props> = ({ data }) => {
   const { title, text, featured, links } = data
   return (
     <Root container className={featured ? 'featured' : undefined} direction="column">
-      <Grid item mb={3}>
-        <Box sx={{ position: 'relative', width: 'max-content' }}>
+      <Grid item xs={12} mb={3}>
+        <Box sx={{ position: 'relative', width: '100%' }}>
           {featured && (
             <Box sx={{ position: 'absolute', left: '-10px', top: '50%', transform: 'translate(0, -50%)', zIndex: 0 }}>
               <svg width="181" height="59" viewBox="0 0 181 59" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -34,7 +36,7 @@ export const SocialMediaCard: FC<Props> = ({ data }) => {
           </Typography>
         </Box>
       </Grid>
-      <Grid item>
+      <Grid item xs={12}>
         {text?.length > 0 ? (
           <Typography variant="body1">{text}</Typography>
         ) : links?.length > 0 ? (

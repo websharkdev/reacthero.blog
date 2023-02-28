@@ -17,6 +17,9 @@ const Root = styled(Grid)(({ theme }) => ({
   height: 783,
   position: 'relative',
   transform: 'rotate(-15deg)',
+  [theme.breakpoints.down('xl')]: {
+    transform: 'rotate(0)',
+  },
   '& .notch-time': {
     position: 'absolute',
     left: 55,

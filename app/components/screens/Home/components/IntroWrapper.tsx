@@ -1,6 +1,9 @@
-import { Box, Grid, styled } from '@mui/material'
+import { Box, Grid, styled, useMediaQuery } from '@mui/material'
 import Image from 'next/image'
-import React, { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
+// Import Swiper styles
+import 'swiper/css'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { SectionHeader } from '@/components/layout/SectionHeader'
 
@@ -15,6 +18,9 @@ type Props = {}
 
 const Root = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(8),
+  [theme.breakpoints.down('md')]: {
+    padding: `${theme.spacing(8)} 0`,
+  },
   position: 'relative',
   '& .intro-wrapper-cards': {
     display: 'flex',
@@ -23,6 +29,12 @@ const Root = styled(Grid)(({ theme }) => ({
     flexDirection: 'column',
     height: '100%',
     minHeight: 800,
+    [theme.breakpoints.down('md')]: {
+      minHeight: 500,
+    },
+    [theme.breakpoints.down('sm')]: {
+      minHeight: 400,
+    },
   },
   '& .intro-image--star': {
     position: 'absolute',
@@ -33,20 +45,35 @@ const Root = styled(Grid)(({ theme }) => ({
 }))
 
 export const IntroWrapper: FC<Props> = (props) => {
+  const tablet = useMediaQuery((theme) =>
+    // @ts-ignore
+    theme.breakpoints.down('sm')
+  )
+
   return (
     <Root container>
       <Grid item xs={12}>
         <SectionHeader index="01" name="Знакомство" enName="intro" />
       </Grid>
 
-      <Grid item xs={7} className="intro-wrapper-cards">
-        <Grid container wrap="wrap" direction="column" justifyContent="flex-end" sx={{ height: 'calc(225px * 2)' }}>
-          {IntroCards.map((card: any) => (
-            <Grid item key={card.id} sx={{ boxShadow: card.featured ? '0px 0px 15px #E3E3E3' : '', width: '50%' }}>
-              <IntroCard data={card} />
-            </Grid>
-          ))}
-        </Grid>
+      <Grid item xs={12} md={10} xl={8} className="intro-wrapper-cards">
+        {tablet ? (
+          <Swiper className="mySwiper">
+            {IntroCards.slice(1).map((card: any) => (
+              <SwiperSlide key={card.id}>
+                <IntroCard data={card} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <Grid container alignItems="center">
+            {IntroCards.map((card: any, index: number) => (
+              <Grid item xs={0 === index ? 12 : 6} md={6} flex={1} key={card.id}>
+                <IntroCard data={card} />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Grid>
 
       <Box

@@ -1,6 +1,8 @@
-import { Box, Grid, styled } from '@mui/material'
+import { Box, Grid, styled, useMediaQuery } from '@mui/material'
 import Image from 'next/dist/client/image'
-import React, { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
+import 'swiper/css'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { SectionHeader } from '@/components/layout/SectionHeader'
 
@@ -9,8 +11,7 @@ import { Star } from '@/assets/icons/photos'
 
 import { SocialMediaCards } from '../../data'
 
-import { SocialMediaCard } from './components'
-import { SocialMediaPhone } from './components/SocialMediaPhone'
+import { SocialMediaCard, SocialMediaPhone } from './components'
 
 type Props = {}
 
@@ -18,7 +19,13 @@ const Root = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(8),
   position: 'relative',
   alignItems: 'flex-end',
-  height: 1200,
+  justifyContent: 'space-between',
+  height: 'max-content',
+  [theme.breakpoints.down('md')]: {
+    padding: 0,
+    alignItems: 'flex-start',
+    height: 600,
+  },
   '& .sm-image--star': {
     position: 'absolute',
     right: '-100px',
@@ -28,22 +35,40 @@ const Root = styled(Grid)(({ theme }) => ({
 }))
 
 export const SocialMediaWrapper: FC<Props> = (props) => {
+  const tablet = useMediaQuery((theme) =>
+    // @ts-ignore
+    theme.breakpoints.down('md')
+  )
+  const phone = useMediaQuery((theme) =>
+    // @ts-ignore
+    theme.breakpoints.down('sm')
+  )
   return (
-    <Root container rowSpacing={6}>
+    <Root container rowSpacing={tablet ? 4 : 6} columnSpacing={6}>
       <Grid item xs={12}>
         <SectionHeader index="03" enName="social media" name="социал медиа" />
       </Grid>
-      <Grid item xs={5}>
-        <SocialMediaPhone />
+      <Grid item md={4} sx={{ pl: '0 !important' }}>
+        {!tablet && <SocialMediaPhone />}
       </Grid>
-      <Grid item xs={7}>
-        <Grid container sx={{ height: 'calc(225px * 2)' }} justifyContent="flex-end" wrap="wrap" direction="column">
-          {SocialMediaCards.map((card) => (
-            <Grid item key={card.id} width="50%">
-              <SocialMediaCard data={card} />
-            </Grid>
-          ))}
-        </Grid>
+      <Grid item xs={12} md={6} lg={8} flex={1}>
+        {phone ? (
+          <Swiper>
+            {SocialMediaCards.slice(1).map((card: any) => (
+              <SwiperSlide key={card.id}>
+                <SocialMediaCard data={card} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <Grid container>
+            {SocialMediaCards.map((card, index) => (
+              <Grid item key={card.id} xs={0 === index ? 12 : 6} md={12} lg={6} flex={1} sx={{ overflow: 'hidden' }}>
+                <SocialMediaCard data={card} />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Grid>
 
       <Box

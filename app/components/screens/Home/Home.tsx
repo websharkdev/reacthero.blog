@@ -17,11 +17,15 @@ const Root = styled(Grid)(({ theme }) => ({
   flexDirection: 'column',
   minHeight: '75vh',
   position: 'relative',
+  overflow: 'hidden',
   '& .container-fluid': {
     width: '100%',
   },
   '& .container': {
     width: 'calc(100% - 68px)',
+    [theme.breakpoints.down('md')]: {
+      width: 'calc(100% - 32px)',
+    },
   },
 }))
 
@@ -42,13 +46,13 @@ export const Home: FC<Props> = (props) => {
 
   return (
     <Root container rowSpacing={10} className={styles.Wrapper}>
-      <Grid item xs={12} className="container-fluid" sx={{ pt: '0 !important' }}>
+      <Grid item xs={12} className="container-fluid">
         <HomeHeader />
       </Grid>
       <Grid item xs={12} className="container">
         <IntroWrapper />
       </Grid>
-      <Grid item xs={12} className="container-fluid">
+      <Grid item xs={12} className="container">
         <HomePosts data={data} />
       </Grid>
       <Grid item xs={12} className="container">

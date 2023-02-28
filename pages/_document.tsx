@@ -3,7 +3,7 @@ import { Head, Html, Main, NextScript } from 'next/document'
 import { fonts } from '@/config/constants'
 
 const Document = () => (
-  <Html lang="en">
+  <Html lang="ru">
     <Head>
       {fonts.map((item: string) => (
         <link href={item} rel="stylesheet" key={item} />

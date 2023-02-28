@@ -20,21 +20,34 @@ const Root = styled(Grid)(({ theme }) => ({
   width: '100%',
   height: '100%',
   '& .display': {
-    position: 'absolute',
-    left: '20%',
-    top: '50%',
-    zIndex: -1,
-    transform: 'translateY(-50%)',
+    position: 'relative',
+    minHeight: 'max-content',
     padding: `${theme.spacing(4)}`,
     background: '#141414',
     border: `3px solid #3A4245`,
     minWidth: 900,
     borderRadius: '35px 35px 0 0',
     '& .code': {
+      display: 'flex',
       padding: 20,
       background: '#21202E',
+      flexDirection: 'column',
       flexWrap: 'nowrap',
       width: '100%',
+      '& .linecode-item': {
+        width: '100%',
+        fontSize: 12,
+        [theme.breakpoints.down(1700)]: {
+          fontSize: 10,
+        },
+      },
+      '& .laptop-code': {
+        fontSize: 12,
+        [theme.breakpoints.down(1700)]: {
+          fontSize: 10,
+          letterSpacing: '0.8px',
+        },
+      },
     },
     '&::after': {
       content: '""',
@@ -67,7 +80,18 @@ export const HeaderLaptop: FC<Props> = (props) => {
   ]
   return (
     <Root container className="laptop">
-      <Grid item xs={12} minHeight={{ xs: 600, md: '50vw' }}>
+      <Grid
+        item
+        xs={12}
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          pl: '10vw',
+          minHeight: 'max-content',
+          flexDirection: 'column',
+        }}
+      >
         <Box className="display">
           <Box className="code">
             <Box className="actions" sx={{ display: 'flex', gap: 1, mb: 2.5 }}>
@@ -87,15 +111,21 @@ export const HeaderLaptop: FC<Props> = (props) => {
             <Grid container sx={{ display: 'flex', flexWrap: 'nowrap' }}>
               <Grid
                 item
-                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mr: 3 }}
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'column',
+                  mr: { xl: 3, md: 1 },
+                }}
               >
                 {[...Array(linesCounter)].map((e, i) => (
-                  <Typography variant="body2" sx={{ color: '#3B3855', fontSize: { lg: 10, xl: 12 } }} key={i}>
+                  <Typography variant="body2" sx={{ color: '#3B3855' }} className="linecode-item" key={i}>
                     {i + 1}
                   </Typography>
                 ))}
               </Grid>
-              <Typography component="pre" variant="body2" sx={{ fontSize: { xl: 12, md: 10 } }}>
+              <Typography component="pre" variant="body2" className="laptop-code" sx={{ fontSize: { xl: 12, md: 10 } }}>
                 <CodeBlock
                   text={`import { Grid, Typography, styled } from '@mui/material'
  type Props = {}

@@ -1,5 +1,4 @@
 import { Box, Grid, Typography, styled } from '@mui/material'
-import { motion } from 'framer-motion'
 import { FC } from 'react'
 
 type Props = {
@@ -9,6 +8,12 @@ type Props = {
 const Root = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(4),
   background: theme.palette.background.paper,
+  [theme.breakpoints.down('lg')]: {
+    minHeight: '10vw',
+  },
+  [theme.breakpoints.down('md')]: {
+    minHeight: 220,
+  },
 }))
 
 export const IntroCard: FC<Props> = ({ data }) => {
@@ -33,7 +38,10 @@ export const IntroCard: FC<Props> = ({ data }) => {
         </Box>
       </Grid>
       <Grid item>
-        <Typography variant="body1" sx={{ minHeight: 100 }}>
+        <Typography
+          variant="body1"
+          sx={{ minHeight: { sm: 'max-content', md: 120, lg: 100 }, fontSize: { xl: 16, md: 14 } }}
+        >
           {text}
         </Typography>
       </Grid>

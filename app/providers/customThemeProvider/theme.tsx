@@ -541,11 +541,10 @@ theme.components = {
         },
         [theme.breakpoints.down(490)]: {
           fontSize: 32,
-          lineHeight: '70px',
+          lineHeight: 'auto',
         },
         [theme.breakpoints.down(360)]: {
           fontSize: 21,
-          lineHeight: '38px',
         },
       },
       h3: {
@@ -554,16 +553,34 @@ theme.components = {
           letterSpacing: '0.8px',
         },
       },
+      h2: {
+        [theme.breakpoints.down('lg')]: {
+          fontSize: '1.5em',
+          letterSpacing: '0.8px',
+        },
+      },
+      body1: {
+        fontWeight: 500,
+        fontSize: 16,
+        lineHeight: 1.4,
+        letterSpacing: '1px',
+        hyphens: 'auto',
+        textAlign: 'left',
+        [theme.breakpoints.down('md')]: {
+          fontSize: 14,
+          letterSpacing: 'normal',
+        },
+      },
       body2: {
         fontWeight: 600,
         fontSize: 16,
         lineHeight: 1.4,
-        letterSpacing: '1.5px',
+        letterSpacing: '1px',
+        hyphens: 'auto',
+        textAlign: 'left',
         [theme.breakpoints.down('md')]: {
           fontSize: 14,
-        },
-        [theme.breakpoints.down('sm')]: {
-          fontSize: 12,
+          letterSpacing: 'normal',
         },
       },
     },

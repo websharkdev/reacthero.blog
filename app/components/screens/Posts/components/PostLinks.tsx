@@ -1,13 +1,35 @@
-import { Box, Grid, Link, Tooltip, styled } from '@mui/material'
+import { Box, Grid, IconButton, Link, Snackbar, Tooltip, Typography, styled } from '@mui/material'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React, { FC, useEffect, useState } from 'react'
+import { FC, useContext, useState } from 'react'
+
+import { UserContextWrapper } from '@/components/layout/Layout'
 
 import { LinkIcon, LinkedInIcon } from '@/assets/icons/ui'
 
 type Props = {}
+type CopyLinkProps = { path?: string }
 
 const Root = styled(Grid)(({ theme }) => ({}))
+
+export const PostCopyLink: FC<CopyLinkProps> = ({ path = '' }) => {
+  const url = useRouter()
+  const context = useContext(UserContextWrapper)
+
+  return (
+    <Tooltip title={'Add to clipboard'}>
+      <Link
+        className="unstyled"
+        onClick={() => {
+          navigator.clipboard.writeText(`https://reacthero-blog.vercel.app${!path ? url.asPath : path}`)
+          context.setClipboard(true)
+        }}
+      >
+        <Image src={LinkIcon} />
+      </Link>
+    </Tooltip>
+  )
+}
 
 export const PostLinks: FC<Props> = (props) => {
   const url = useRouter()
@@ -41,6 +63,7 @@ export const PostLinks: FC<Props> = (props) => {
       link: `https://www.linkedin.com/shareArticle?&url=https%3A//reacthero-blog.vercel.app/${url.asPath}`,
     },
   ]
+
   return (
     <Root container wrap="nowrap" columnSpacing={1.5}>
       {links.map((link) => (
@@ -52,16 +75,8 @@ export const PostLinks: FC<Props> = (props) => {
           </Tooltip>
         </Grid>
       ))}
-
       <Grid item>
-        <Tooltip title={'Add to clipboard'}>
-          <Link
-            className="unstyled"
-            onClick={() => navigator.clipboard.writeText(`https://reacthero-blog.vercel.app${url.asPath}`)}
-          >
-            <Image src={LinkIcon} />
-          </Link>
-        </Tooltip>
+        <PostCopyLink />
       </Grid>
     </Root>
   )

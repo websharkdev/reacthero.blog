@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, styled } from '@mui/material'
+import { Grid, Typography, styled } from '@mui/material'
 import moment from 'moment'
 import { FC } from 'react'
 
@@ -21,7 +21,7 @@ export const PostAutor: FC<Props> = ({ data }) => {
           {data.author.name}
         </Typography>
         <Typography variant="body2" fontSize={12}>
-          {moment(data.createdAt).format('MMM DD, YYYY')}
+          {moment(data.createdAt).fromNow()}
           <span> • </span>
           {Math.ceil(JSON.stringify(data.content.raw).trim().split(/\s+/).length / 155)} min. read
         </Typography>

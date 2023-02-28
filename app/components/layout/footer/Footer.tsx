@@ -83,7 +83,7 @@ export const Footer: FC<Props> = () => {
           </Grid>
           <Grid item xs={12} md={5}>
             <Box width={{ md: 220, xs: 220 }}>
-              <Typography variant="h3">Bortnytskyi Olexii</Typography>
+              <Typography variant="h3">Bortnytskyi Oleksii</Typography>
               <Box className="footer-leftSide--divider" />
               <Typography variant="body2" fontWeight={600} mt={3}>
                 designer, developer, creator, and just a cool pepper.
