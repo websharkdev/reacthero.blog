@@ -1,13 +1,7 @@
 import { Divider, Grid, styled } from '@mui/material'
-import { FC, useState } from 'react'
-import { useLanguage } from 'shared/hooks/useLanguage'
-import { LanguageProps } from 'shared/types/home'
+import { FC } from 'react'
 
-import { HeaderWrapper } from '@/components/layout/header/HeaderWrapper'
-
-import { HeaderBG } from '@/assets/icons/backgrounds'
-
-import { helpUkraineEN, helpUkraineRU } from '../Home/data'
+import { helpUkraineEN } from '../Home/data'
 
 import { HelpUkraineAbout, HelpUkraineFinancially } from './components'
 
@@ -18,16 +12,6 @@ const Root = styled(Grid)(({ theme }) => ({
 }))
 
 export const HelpUkraineWrapper: FC<Props> = (props) => {
-  const [language, setLanguage] = useState<LanguageProps>('en')
-  const [ukraine_data, setUkraine_data] = useState(helpUkraineEN)
-
-  useLanguage({
-    dataEN: helpUkraineEN,
-    dataRU: helpUkraineRU,
-    setData: setUkraine_data,
-    language,
-    setLanguage,
-  })
   return (
     <Root container rowSpacing={10}>
       <Grid item xs={12}>
@@ -36,11 +20,11 @@ export const HelpUkraineWrapper: FC<Props> = (props) => {
       </Grid>
 
       <Grid item xs={12}>
-        <HelpUkraineAbout data={ukraine_data} />
+        <HelpUkraineAbout data={helpUkraineEN} />
         <Divider />
       </Grid>
       <Grid item xs={12}>
-        <HelpUkraineFinancially data={ukraine_data.financially} />
+        <HelpUkraineFinancially data={helpUkraineEN.financially} />
       </Grid>
     </Root>
   )
