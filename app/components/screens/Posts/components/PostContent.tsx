@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Link as MuiLink, Tooltip, Typography, styled } from '@mui/material'
+import { Box, Divider, Grid, Link as MuiLink, Tooltip, Typography, styled, useMediaQuery } from '@mui/material'
 import { Variant } from '@mui/material/styles/createTypography'
 import { FC, memo, useEffect, useState } from 'react'
 
@@ -94,6 +94,11 @@ export const PostContent: FC<Props> = ({ data }) => {
   const [looped, setLooped] = useState<number>(0)
   const [content, setContent] = useState<string[]>([])
   const globalArr: any = []
+
+  const tablet = useMediaQuery((theme) =>
+    // @ts-ignore
+    theme.breakpoints.down('md')
+  )
 
   const hasChildren = (data: any) => {
     const isHasAChild = data.children?.length
@@ -206,8 +211,8 @@ export const PostContent: FC<Props> = ({ data }) => {
       {/* iframe */}
       {data.type === rawTypeProps[15] && (
         <iframe
-          width={data.width}
-          height={data.height}
+          width={tablet ? '100%' : data.width}
+          height={tablet ? 'auto' : data.height}
           src={data.url}
           title={data.url}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

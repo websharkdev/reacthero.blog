@@ -12,11 +12,15 @@ type Props = {
 
 const Root = styled(Grid)(({ theme }) => ({
   width: 'calc(100% - 178px)',
+  padding: theme.spacing(4.5),
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2),
+    width: 'calc(100% - 32px)',
+  },
   margin: '0 auto',
   flexDirection: 'column',
   justifyContent: 'center',
   background: '#D5E4F2',
-  padding: theme.spacing(4.5),
   height: 'max-content',
   marginBottom: theme.spacing(12),
   '& .post_item-details--image': {
@@ -45,7 +49,7 @@ export const PostItemWrapper: FC<Props> = ({ post }) => {
           className="post_item-details--image"
         />
       </Grid>
-      <Grid item>
+      <Grid item xs={12}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant="h2" sx={{ mb: 4 }}>
             {post.title}
@@ -100,8 +104,10 @@ export const PostItemWrapper: FC<Props> = ({ post }) => {
         </Grid>
       </Grid>
 
-      <Grid item xs={12} mt={6}>
-        <PostWidget categories={currentCategory} slug={currentCategory[0]} />
+      <Grid item xs={12} mt={6} className="post-widget--wrapper">
+        <Box sx={{ width: '100% !important', overflow: 'hidden', maxWidth: { md: 'auto', xs: 'calc(100vw - 32px)' } }}>
+          <PostWidget categories={currentCategory} slug={currentCategory[0]} />
+        </Box>
       </Grid>
     </Root>
   )

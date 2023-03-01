@@ -58,7 +58,7 @@ export const IntroWrapper: FC<Props> = (props) => {
 
       <Grid item xs={12} md={10} xl={8} className="intro-wrapper-cards">
         {tablet ? (
-          <Swiper className="mySwiper">
+          <Swiper>
             {IntroCards.slice(1).map((card: any) => (
               <SwiperSlide key={card.id}>
                 <IntroCard data={card} />

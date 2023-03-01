@@ -4,7 +4,7 @@ const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCSM_ENDPOINT
 
 export const getPosts = async () => {
   const query = gql`
-    query Assets {
+    query GetPosts {
       postsConnection {
         edges {
           node {
@@ -95,7 +95,7 @@ export const getPostDetails = async (slug: string) => {
 
 export const getSimilarPosts = async (categories: string[], slug: string) => {
   const query = gql`
-    query GetPostDetails($slug: String!, $categories: [String!]) {
+    query getSimilarPosts($slug: String!, $categories: [String!]) {
       posts(where: { slug_not: $slug, AND: { categories_some: { slug_in: $categories } } }, last: 3) {
         title
         featuredImage {
@@ -104,7 +104,9 @@ export const getSimilarPosts = async (categories: string[], slug: string) => {
         id
         excerpt
         createdAt
-
+        content {
+          raw
+        }
         slug
       }
     }
@@ -206,7 +208,7 @@ export const getCategoryPost = async (slug: string) => {
 
 export const getFeaturedPosts = async () => {
   const query = gql`
-    query GetCategoryPost() {
+    query getFeaturedPosts() {
       posts(where: {featuredPost: true}) {
         author {
           name
@@ -216,6 +218,9 @@ export const getFeaturedPosts = async () => {
         }
         featuredImage {
           url
+        }
+        content {
+          raw
         }
         id
         title
@@ -260,7 +265,7 @@ export const getFeaturedPosts = async () => {
 
 export const getRecentPosts = async () => {
   const query = gql`
-    query GetPostDetails() {
+    query getRecentPosts() {
       posts(
         orderBy: createdAt_ASC
         last: 3
@@ -275,8 +280,8 @@ export const getRecentPosts = async () => {
           tag
         }
         content {
-          text
-        }
+      raw
+    }
         excerpt
         createdAt
         slug

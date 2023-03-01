@@ -1,4 +1,4 @@
-import { Box, IconButton, Snackbar, Typography, styled } from '@mui/material'
+import { Box, IconButton, Snackbar, Typography, styled, useMediaQuery } from '@mui/material'
 import { motion, useScroll } from 'framer-motion'
 import { FC, ReactElement, createContext, useState } from 'react'
 
@@ -6,6 +6,7 @@ import { HelpUkraine } from '@/components/layout/HelpUkraine'
 import { Footer } from '@/components/layout/footer'
 import { Header, Menu } from '@/components/layout/header'
 
+import { UserContextWrapper } from './Layout'
 import styles from './layout.module.sass'
 
 interface ContextWrapper {
@@ -30,8 +31,6 @@ const SnackbarRoot = styled(Box)(({ theme }) => ({
     padding: `${theme.spacing(0.5)} ${theme.spacing(1.5)}`,
   },
 }))
-// @ts-ignore
-export const UserContextWrapper = createContext<ContextWrapper>({})
 
 const MenuLayout: FC<{ children: ReactElement }> = ({ children }) => {
   const [clipboard, setClipboard] = useState<boolean>(false)
@@ -45,6 +44,11 @@ const MenuLayout: FC<{ children: ReactElement }> = ({ children }) => {
     setClipboard(false)
   }
 
+  const tablet = useMediaQuery((theme) =>
+    // @ts-ignore
+    theme.breakpoints.down('md')
+  )
+
   return (
     <UserContextWrapper.Provider
       value={{
@@ -56,12 +60,14 @@ const MenuLayout: FC<{ children: ReactElement }> = ({ children }) => {
       <div className={styles.layout}>
         <div className={styles.layout_menu}>
           <div className={styles.page}>
-            <Header simplified />
+            <Header simplified={!tablet} />
             {children}
           </div>
-          <div className={styles.menu}>
-            <Menu unstyled={false} />
-          </div>
+          {!tablet && (
+            <div className={styles.menu}>
+              <Menu unstyled={false} />
+            </div>
+          )}
         </div>
         <div className={styles.footer}>
           <HelpUkraine />

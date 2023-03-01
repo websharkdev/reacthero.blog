@@ -5,10 +5,11 @@ import { FC, useState } from 'react'
 
 import { LikeActiveIcon, LikeOnActiveIcon } from '@/assets/icons/ui'
 
-import { PostCopyLink, PostLinks } from './PostLinks'
+import { PostCopyLink } from './PostLinks'
 
 type Props = {
   data: any
+  simplified?: boolean
 }
 
 const Root = styled(Grid)(({ theme }) => ({
@@ -26,7 +27,7 @@ const Root = styled(Grid)(({ theme }) => ({
   },
 }))
 
-export const PostItem: FC<Props> = ({ data }) => {
+export const PostItem: FC<Props> = ({ data, simplified }) => {
   const [like, setLike] = useState<boolean>(false)
 
   const handleLike = () => {
@@ -42,14 +43,14 @@ export const PostItem: FC<Props> = ({ data }) => {
         className="post-image--container"
         sx={{
           position: 'relative',
-          right: { xs: 0, md: '-50px' },
-          top: { xs: 0, md: '-30px' },
-          padding: { xs: 2, md: 0 },
+          right: { xs: 0, md: simplified ? 0 : '-50px' },
+          top: { xs: 0, md: simplified ? 0 : '-30px' },
+          padding: { xs: 2, md: simplified ? 2 : 0 },
           background: '#fff',
           '&::before': {
             content: '""',
             width: '100%',
-            display: { xs: 'none', md: 'flex' },
+            display: { xs: 'none', md: !simplified ? 'flex' : 'none' },
             height: '90%',
             background: '#fff',
             position: 'absolute',
@@ -69,7 +70,7 @@ export const PostItem: FC<Props> = ({ data }) => {
             zIndex: 11,
           }}
         />
-        {tablet && data.hashtag.length > 0 && (
+        {tablet && data.hashtag && data.hashtag.length > 0 && (
           <Box
             sx={{
               position: 'absolute',
@@ -94,7 +95,7 @@ export const PostItem: FC<Props> = ({ data }) => {
           }}
         >
           <Typography variant="h6">{data.title}</Typography>
-          {!tablet && data.hashtag.length > 0 && (
+          {!tablet && data.hashtag && data.hashtag.length > 0 && (
             <Chip sx={{ width: 'max-content' }} label={`#${data.hashtag[data.hashtag.length - 1]?.tag}`} />
           )}
         </Grid>
@@ -111,7 +112,7 @@ export const PostItem: FC<Props> = ({ data }) => {
               {moment(data.createdAt).fromNow()}
             </Typography>
             <Typography variant="body2" fontSize={12}>
-              • {Math.ceil(JSON.stringify(data.content.text).trim().split(/\s+/).length / 155)} min. read
+              • {Math.ceil(JSON.stringify(data.content.raw).trim().split(/\s+/).length / 155)} min. read
             </Typography>
           </Box>
         </Grid>

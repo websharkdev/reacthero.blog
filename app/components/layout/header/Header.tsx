@@ -58,7 +58,7 @@ export const Header: FC<Props> = ({ animated, simplified = false }) => {
       )}
 
       <Drawer open={headerMenu} anchor="right" onClose={() => setHeaderMenu(!headerMenu)}>
-        <Menu unstyled />
+        <Menu unstyled setHeaderMenu={setHeaderMenu} headerMenu={headerMenu} />
       </Drawer>
     </Root>
   )
