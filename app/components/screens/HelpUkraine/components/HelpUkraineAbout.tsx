@@ -27,6 +27,7 @@ const Root = styled(Grid)(({ theme }) => ({
     padding: `0 ${theme.spacing(5)}`,
     '& .help_Ukraine-image': {
       width: '100%',
+      aspectRatio: '16/9',
     },
     [theme.breakpoints.down('md')]: {
       display: 'none',

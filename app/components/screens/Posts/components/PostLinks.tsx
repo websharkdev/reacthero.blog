@@ -21,7 +21,7 @@ export const PostCopyLink: FC<CopyLinkProps> = ({ path = '' }) => {
       <Link
         className="unstyled"
         onClick={() => {
-          navigator.clipboard.writeText(`https://reacthero-blog.vercel.app${!path ? url.asPath : path}`)
+          navigator.clipboard.writeText(`${window.location.origin}${!path ? url.asPath : path}`)
           context.setClipboard(true)
         }}
       >

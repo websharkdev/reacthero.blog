@@ -3,9 +3,9 @@ import { FC } from 'react'
 
 import { SectionHeader } from '@/components/layout/SectionHeader'
 
-import { CoffeContent } from './components/CoffeContent'
+import { BlockProps } from '@/shared/types/home'
 
-type Props = {}
+import { CoffeContent } from './components/CoffeContent'
 
 const Root = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(8),
@@ -23,13 +23,13 @@ const Root = styled(Grid)(({ theme }) => ({
   },
 }))
 
-export const BuyMeACoffeWrapper: FC<Props> = (props) => {
+export const BuyMeACoffeWrapper: FC<BlockProps> = ({ index, enName, name }) => {
   return (
     <Root container rowSpacing={6}>
       <Grid item xs={12}>
-        <SectionHeader index="04" enName="buy me a coffe" name="купить кофейку" />
+        <SectionHeader index={index} enName={enName} name={name} />
       </Grid>
-      <Grid item xs={12} lg={12}>
+      <Grid item xs={12} lg={10}>
         <CoffeContent />
       </Grid>
     </Root>

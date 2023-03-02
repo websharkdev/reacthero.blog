@@ -14,7 +14,8 @@ type Props = {}
 
 const Root = styled(Grid)(({ theme }) => ({
   width: 386,
-  height: 783,
+  height: 700,
+  margin: '0 auto',
   position: 'relative',
   transform: 'rotate(-15deg)',
   [theme.breakpoints.down('xl')]: {

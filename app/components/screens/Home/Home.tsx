@@ -1,4 +1,4 @@
-import { Grid, styled } from '@mui/material'
+import { Divider, Grid, styled } from '@mui/material'
 import { FC, useEffect, useState } from 'react'
 
 import styles from '@/screens/Home/home.module.sass'
@@ -6,8 +6,7 @@ import styles from '@/screens/Home/home.module.sass'
 import { getRecentPosts } from '@/shared/api/home.api'
 
 import { BuyMeACoffeWrapper, HomeHeader, HomePosts, IntroWrapper, SocialMediaWrapper } from './components'
-
-// import { user_data } from './data'
+import { HomePageData } from './data'
 
 type Props = {}
 
@@ -18,6 +17,7 @@ const Root = styled(Grid)(({ theme }) => ({
   minHeight: '75vh',
   position: 'relative',
   overflow: 'hidden',
+  paddingBottom: theme.spacing(12),
   '& .container-fluid': {
     width: '100%',
   },
@@ -30,16 +30,7 @@ const Root = styled(Grid)(({ theme }) => ({
 }))
 
 export const Home: FC<Props> = (props) => {
-  // const [language, setLanguage] = useState<LanguageProps>('en')
   const [data, setData] = useState({})
-  // useLanguage({
-  //   dataEN: user_data,
-  //   dataRU: user_data,
-  //   setData,
-  //   language,
-  //   setLanguage,
-  // })
-
   useEffect(() => {
     getRecentPosts().then((res: any) => setData(res))
   }, [])
@@ -49,18 +40,19 @@ export const Home: FC<Props> = (props) => {
       <Grid item xs={12} className="container-fluid">
         <HomeHeader />
       </Grid>
-      <Grid item xs={12} className="container">
-        <IntroWrapper />
-      </Grid>
-      <Grid item xs={12} className="container">
-        <HomePosts data={data} />
-      </Grid>
-      <Grid item xs={12} className="container">
-        <SocialMediaWrapper />
-      </Grid>
-      <Grid item xs={12} className="container">
-        <BuyMeACoffeWrapper />
-      </Grid>
+
+      {HomePageData.map(({ id, title, enName, component }: any) => (
+        <Grid item xs={12} className="container" key={id}>
+          {component === 'IntroWrapper' && <IntroWrapper index={`0${id + 1}`} enName={enName} name={title} />}
+          {component === 'HomePosts' && <HomePosts index={`0${id + 1}`} enName={enName} name={title} data={data} />}
+          {component === 'BuyMeACoffeWrapper' && (
+            <BuyMeACoffeWrapper index={`0${id + 1}`} enName={enName} name={title} />
+          )}
+          {component === 'SocialMediaWrapper' && (
+            <SocialMediaWrapper index={`0${id + 1}`} enName={enName} name={title} />
+          )}
+        </Grid>
+      ))}
     </Root>
   )
 }

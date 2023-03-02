@@ -6,14 +6,14 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { SectionHeader } from '@/components/layout/SectionHeader'
 
+import { BlockProps } from '@/shared/types/home'
+
 import { SocialMediaBG } from '@/assets/icons/backgrounds'
 import { Star } from '@/assets/icons/photos'
 
 import { SocialMediaCards } from '../../data'
 
 import { SocialMediaCard, SocialMediaPhone } from './components'
-
-type Props = {}
 
 const Root = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(8),
@@ -34,7 +34,7 @@ const Root = styled(Grid)(({ theme }) => ({
   },
 }))
 
-export const SocialMediaWrapper: FC<Props> = (props) => {
+export const SocialMediaWrapper: FC<BlockProps> = ({ index, enName, name }) => {
   const tablet = useMediaQuery((theme) =>
     // @ts-ignore
     theme.breakpoints.down('md')
@@ -46,7 +46,7 @@ export const SocialMediaWrapper: FC<Props> = (props) => {
   return (
     <Root container rowSpacing={tablet ? 4 : 6} columnSpacing={6}>
       <Grid item xs={12}>
-        <SectionHeader index="03" enName="social media" name="социал медиа" />
+        <SectionHeader index={index} enName={enName} name={name} />
       </Grid>
       <Grid item md={4} sx={{ pl: '0 !important' }}>
         {!tablet && <SocialMediaPhone />}

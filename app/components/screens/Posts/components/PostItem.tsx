@@ -46,7 +46,7 @@ export const PostItem: FC<Props> = ({ data, simplified }) => {
           right: { xs: 0, md: simplified ? 0 : '-50px' },
           top: { xs: 0, md: simplified ? 0 : '-30px' },
           padding: { xs: 2, md: simplified ? 2 : 0 },
-          background: '#fff',
+          background: 'transparent',
           '&::before': {
             content: '""',
             width: '100%',

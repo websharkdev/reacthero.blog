@@ -8,10 +8,7 @@ import { SectionHeader } from '@/components/layout/SectionHeader'
 import { PostItem } from '@/components/screens/Posts'
 
 import { useWidth } from '@/shared/hooks'
-
-type Props = {
-  data: any
-}
+import { BlockProps } from '@/shared/types/home'
 
 const Root = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(12),
@@ -24,7 +21,11 @@ const Root = styled(Grid)(({ theme }) => ({
   },
 }))
 
-export const HomePosts: FC<Props> = ({ data }) => {
+interface Props extends BlockProps {
+  data: any
+}
+
+export const HomePosts: FC<Props> = ({ data, index, enName, name }) => {
   const currentWidth = useWidth()
 
   const [slidesToShow, setSlidesToShow] = useState(0)
@@ -50,7 +51,7 @@ export const HomePosts: FC<Props> = ({ data }) => {
 
       default:
         setSlidesToShow(1)
-        setSlidesSpacing(0)
+        setSlidesSpacing(40)
         break
     }
   }, [currentWidth])
@@ -63,7 +64,7 @@ export const HomePosts: FC<Props> = ({ data }) => {
   return (
     <Root container columnSpacing={12} alignItems="center" rowSpacing={10}>
       <Grid item xs={12}>
-        <SectionHeader index="02" name="Последнее" enName="lastes" />
+        <SectionHeader index={index} enName={enName} name={name} />
       </Grid>
 
       <Grid item xs={12}>

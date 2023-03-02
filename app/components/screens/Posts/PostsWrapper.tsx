@@ -2,7 +2,7 @@ import { Grid, styled } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 
-import { getCategoryPost } from '@/shared/api/home.api'
+import { getAllPosts } from '@/shared/api/home.api'
 
 import { PostItem } from './components'
 
@@ -14,22 +14,21 @@ const Root = styled(Grid)(({ theme }) => ({
 
 export const PostsWrapper: FC<Props> = () => {
   const router = useRouter()
+  const [data, setData] = useState([])
 
-  const [categoryData, setCategoryData] = useState<string[]>([])
   useEffect(() => {
-    if (router.isFallback === false && router.query.slug) {
-      getCategoryPost(router.query.slug.toString()).then((res) => {
-        setCategoryData(res)
-      })
+    if (router.isFallback === false) {
+      getAllPosts().then((res) => res && setData(res.posts))
     }
+    console.log(data)
   }, [])
 
   return (
-    <Root container spacing={12}>
-      {categoryData.length > 0 &&
-        categoryData.map((post: any) => (
-          <Grid item xs={12} md={6} key={post.node.createdAt}>
-            <PostItem data={post.node} />
+    <Root container spacing={10}>
+      {data.length > 0 &&
+        data.map((post: any) => (
+          <Grid item xs={12} md={6} lg={4} key={post.id}>
+            <PostItem data={post} />
           </Grid>
         ))}
     </Root>

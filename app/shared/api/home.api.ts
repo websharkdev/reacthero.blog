@@ -47,7 +47,10 @@ export const getCategories = async () => {
         name
         slug
         id
-        relate
+        categoryRelateds {
+          title
+          id
+        }
       }
     }
   `
@@ -55,6 +58,36 @@ export const getCategories = async () => {
   const result = await request(graphqlAPI!, query)
 
   return result.categories
+}
+
+export const getAllPosts = async () => {
+  const query = gql`
+    query getAllPosts {
+      posts {
+        id
+        stage
+        slug
+        title
+        excerpt
+        content {
+          raw
+        }
+        featuredImage {
+          id
+          url
+          width
+        }
+        hashtag {
+          id
+          tag
+          stage
+        }
+      }
+    }
+  `
+  const result = await request(graphqlAPI!, query)
+
+  return result
 }
 
 export const getPostDetails = async (slug: string) => {

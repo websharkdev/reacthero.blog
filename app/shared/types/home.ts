@@ -1,4 +1,4 @@
-import { ImageProps } from 'next/image'
+import { ImageProps } from 'next/dist/client/image'
 
 export interface Image {
   src: string
@@ -19,11 +19,15 @@ export interface HomeSwiperItem {
 
 export type LanguageProps = 'en' | 'es' | 'uk' | 'ru'
 
-export type MenuItem = {
+export type CategoryRelatedItemProps = {
+  title: string
+  id: string
+}
+export type MenuItemProps = {
   id: string
   name: string
   slug: string
-  relate: string
+  categoryRelateds: CategoryRelatedItemProps[]
 }
 
 export type ButtonProps = {
@@ -105,7 +109,7 @@ export type PostDetailsRawProps = {
 
 export type PostItemDetailsProps = {
   author: AuthorProps
-  categories: MenuItem[]
+  categories: MenuItemProps[]
   content: {
     raw: PostDetailsRawProps
   }
@@ -115,4 +119,27 @@ export type PostItemDetailsProps = {
   id: string
   slug: string
   title: string
+}
+
+type ImageSProps = {
+  xs?: number[]
+  sm?: number[]
+  md?: number[]
+  lg?: number[]
+  xl?: number[]
+}
+
+export type BlockProps = {
+  index: string
+  enName: string
+  name: string
+}
+
+export type PhotoContainerProps = {
+  mainPhoto?: ImageProps
+  photoBG?: ImageProps
+  position?: 'default' | 'unStyled' | 'block' | 'background'
+  size?: ImageSProps
+  shift?: ImageSProps
+  className?: string
 }

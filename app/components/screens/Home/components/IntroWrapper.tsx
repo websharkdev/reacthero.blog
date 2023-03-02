@@ -7,14 +7,14 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { SectionHeader } from '@/components/layout/SectionHeader'
 
+import { BlockProps } from '@/shared/types/home'
+
 import { HeaderBG } from '@/assets/icons/backgrounds'
 import { Star } from '@/assets/icons/photos'
 
 import { IntroCards } from '../data'
 
 import { IntroCard } from './IntroCard'
-
-type Props = {}
 
 const Root = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(8),
@@ -44,7 +44,7 @@ const Root = styled(Grid)(({ theme }) => ({
   },
 }))
 
-export const IntroWrapper: FC<Props> = (props) => {
+export const IntroWrapper: FC<BlockProps> = ({ index, enName, name }) => {
   const tablet = useMediaQuery((theme) =>
     // @ts-ignore
     theme.breakpoints.down('sm')
@@ -53,7 +53,7 @@ export const IntroWrapper: FC<Props> = (props) => {
   return (
     <Root container>
       <Grid item xs={12}>
-        <SectionHeader index="01" name="Знакомство" enName="intro" />
+        <SectionHeader index={index} enName={enName} name={name} />
       </Grid>
 
       <Grid item xs={12} md={10} xl={8} className="intro-wrapper-cards">
