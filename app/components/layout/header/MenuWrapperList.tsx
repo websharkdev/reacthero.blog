@@ -46,7 +46,7 @@ export const MenuWrapperList: FC<Props> = ({ menu, title }) => {
           {menu.map((item: MenuItemProps) => (
             <>
               {item.categoryRelateds[0].title === title ? (
-                <MuiLink href={item.slug} key={item.id} className="unstyled">
+                <MuiLink href={`/category/${item.slug}`} key={item.id} className="unstyled">
                   <ListItemButton>
                     <ListItemText primary={`— ${item.name}`} />
                   </ListItemButton>

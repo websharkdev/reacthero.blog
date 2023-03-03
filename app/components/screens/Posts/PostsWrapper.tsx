@@ -2,35 +2,55 @@ import { Grid, styled } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 
-import { getAllPosts } from '@/shared/api/home.api'
+import { getAllPosts, getCategoryPost } from '@/shared/api/home.api'
 
 import { PostItem } from './components'
 
-type Props = {}
+type Props = {
+  post?: any
+}
 
 const Root = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(12),
 }))
 
-export const PostsWrapper: FC<Props> = () => {
+export const PostsWrapper: FC<Props> = ({ post }) => {
   const router = useRouter()
   const [data, setData] = useState([])
 
   useEffect(() => {
-    if (router.isFallback === false) {
-      getAllPosts().then((res) => res && setData(res.posts))
+    if (router.isReady) {
+      router.query.slug
+        ? getCategoryPost(router.query.slug.toString()).then((res) => setData(res))
+        : getAllPosts().then((res) => setData(res.posts))
     }
-    console.log(data)
-  }, [])
+  }, [router.query.slug])
 
   return (
     <Root container spacing={10}>
-      {data.length > 0 &&
-        data.map((post: any) => (
-          <Grid item xs={12} md={6} lg={4} key={post.id}>
-            <PostItem data={post} />
-          </Grid>
-        ))}
+      {data?.map((post: any) => (
+        <Grid item xs={12} md={6} lg={6} key={post.id}>
+          <PostItem data={post} />
+        </Grid>
+      ))}
     </Root>
   )
+}
+
+// Fetch data at build time
+export async function getStaticProps({ params }: any) {
+  const data = await getCategoryPost(params.slug)
+  return {
+    props: {
+      post: data,
+    },
+  }
+}
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts()
+  return {
+    paths: posts.map(({ node: { slug } }: any) => ({ params: { slug } })),
+    fallback: true,
+  }
 }

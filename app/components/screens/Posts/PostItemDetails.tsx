@@ -1,9 +1,9 @@
-import { Box, Grid, Link as MuiLink, Typography, styled } from '@mui/material'
+import { Grid, MenuItemProps, Typography, styled } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 
 import { getCategories } from '@/shared/api/home.api'
-import { MenuItem, PostItemDetailsProps } from '@/shared/types/home'
+import { PostItemDetailsProps } from '@/shared/types/home'
 
 import { PostContent, PostWidget } from './index'
 
@@ -27,7 +27,7 @@ const Root = styled(Grid)(({ theme }) => ({
 
 export const PostItemDetails: FC<Props> = ({ data }) => {
   const url = useRouter()
-  const [categoryData, setCategoryData] = useState<MenuItem[]>([])
+  const [categoryData, setCategoryData] = useState<MenuItemProps[]>([])
   useEffect(() => {
     getCategories().then((res) => setCategoryData(res))
   }, [])

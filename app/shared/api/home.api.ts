@@ -28,7 +28,10 @@ export const getPosts = async () => {
               name
               id
               slug
-              relate
+              categoryRelateds {
+                title
+                id
+              }
             }
             id
           }
@@ -203,32 +206,24 @@ export const getSocialMedia = async () => {
 export const getCategoryPost = async (slug: string) => {
   const query = gql`
     query GetCategoryPost($slug: String!) {
-      postsConnection(where: { categories_some: { slug: $slug } }) {
-        edges {
-          cursor
-          node {
-            author {
-              bio
-              name
-              id
-              photo {
-                url
-              }
-            }
-            id
-            createdAt
-            slug
-            title
-            excerpt
-            featuredImage {
-              url
-            }
-            categories {
-              id
-              name
-              slug
-            }
-          }
+      posts(where: { categories_some: { slug: $slug } }) {
+        id
+        stage
+        slug
+        title
+        excerpt
+        content {
+          raw
+        }
+        featuredImage {
+          id
+          url
+          width
+        }
+        hashtag {
+          id
+          tag
+          stage
         }
       }
     }
@@ -236,7 +231,7 @@ export const getCategoryPost = async (slug: string) => {
 
   const result = await request(graphqlAPI!, query, { slug })
 
-  return result.postsConnection.edges
+  return result.posts
 }
 
 export const getFeaturedPosts = async () => {
