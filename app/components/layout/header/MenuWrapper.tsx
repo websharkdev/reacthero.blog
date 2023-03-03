@@ -65,8 +65,9 @@ export const MenuWrapper: FC<Props> = ({ variant = 'header' }) => {
       </Grid>
       <Grid
         item
-        xs={variant === 'footer' ? 6 : 12}
-        sx={{ order: variant === 'footer' ? 100 : 0, display: 'flex', columnGap: 3 }}
+        sm={variant === 'footer' ? 6 : 12}
+        xs={12}
+        sx={{ order: variant === 'footer' ? 100 : 0, display: 'flex', columnGap: { xs: 1.5, md: 3 } }}
       >
         <Box className="menu-wrapper--categories-divider" />
         <Grid container rowGap={1} wrap="nowrap" direction="column">
