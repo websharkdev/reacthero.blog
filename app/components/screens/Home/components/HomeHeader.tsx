@@ -20,7 +20,7 @@ const Root = styled(Grid)(({ theme }) => ({
   position: 'relative',
   overflow: 'hidden',
   flexWrap: 'nowrap',
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     flexWrap: 'wrap',
     padding: theme.spacing(4),
   },

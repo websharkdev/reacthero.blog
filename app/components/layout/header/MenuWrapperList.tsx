@@ -44,15 +44,15 @@ export const MenuWrapperList: FC<Props> = ({ menu, title }) => {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {menu.map((item: MenuItemProps) => (
-            <>
+            <React.Fragment key={item.id}>
               {item.categoryRelateds[0].title === title ? (
-                <MuiLink href={`/category/${item.slug}`} key={item.id} className="unstyled">
+                <MuiLink href={`/category/${item.slug}`} className="unstyled">
                   <ListItemButton>
                     <ListItemText primary={`— ${item.name}`} />
                   </ListItemButton>
                 </MuiLink>
               ) : null}
-            </>
+            </React.Fragment>
           ))}
         </List>
       </Collapse>

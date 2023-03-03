@@ -166,9 +166,8 @@ export const HeaderLaptop: FC<Props> = (props) => {
   
    return (
     <Root container>
-      <Grid item className=`}
+      <Grid item className="`}
                 />
-                &quot;
                 <ReactTyped
                   strings={[`preloader-container`, `preloader-wrapper--container`, `preloader-text`]}
                   typeSpeed={150}
@@ -178,9 +177,8 @@ export const HeaderLaptop: FC<Props> = (props) => {
                     color: '#9F74FA',
                   }}
                 />
-                &quot;
                 <CodeBlock
-                  text={`xs={12}>
+                  text={`" xs={12}>
         <Typography variant="h3" className=`}
                 />
                 &quot;
