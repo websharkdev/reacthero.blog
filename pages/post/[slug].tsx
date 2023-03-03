@@ -4,10 +4,15 @@ import MenuLayout from '@/components/layout/MenuLayout'
 import { PostItemWrapper } from '@/components/screens/Posts'
 
 import { getPostDetails, getPosts } from '@/shared/api/home.api'
+import { PostItemDetailsProps } from '@/shared/types/home'
 
 import Meta from '@/utils/meta/Meta'
 
-const PostPage: NextPage = ({ post }: any) => (
+type Props = {
+  post: PostItemDetailsProps
+}
+
+const PostPage: NextPage<Props> = ({ post }) => (
   <Meta title={`${post.title}`}>
     <MenuLayout>
       <PostItemWrapper post={post} />
@@ -18,7 +23,8 @@ const PostPage: NextPage = ({ post }: any) => (
 export default PostPage
 
 // Fetch data at build time
-export async function getStaticProps({ params }: any) {
+// @ts-ignore
+export async function getStaticProps({ params }) {
   const data = await getPostDetails(params.slug)
   return {
     props: {
@@ -30,7 +36,8 @@ export async function getStaticProps({ params }: any) {
 export async function getStaticPaths() {
   const posts = await getPosts()
   return {
-    paths: posts.map(({ node: { slug } }: any) => ({ params: { slug } })),
+    // @ts-ignore
+    paths: posts.map(({ node: { slug } }) => ({ params: { slug } })),
     fallback: true,
   }
 }

@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { getPostDetails, getPosts, getRecentPosts, getSimilarPosts } from '@/shared/api/home.api'
 import { useWidth } from '@/shared/hooks'
+import { PostItemProps } from '@/shared/types/home'
 
 import { PostItem } from './components'
 
@@ -42,7 +43,7 @@ const Root = styled(Swiper)(({ theme }) => ({
 }))
 
 export const PostWidget: FC<Props> = ({ slug, categories }) => {
-  const [relatedPost, setRelatedPost] = useState([])
+  const [relatedPost, setRelatedPost] = useState<PostItemProps[]>([])
 
   const [slidesToShow, setSlidesToShow] = useState<number | 'auto'>(0)
   const currentWidth = useWidth()
@@ -85,7 +86,7 @@ export const PostWidget: FC<Props> = ({ slug, categories }) => {
 
   return (
     <Root spaceBetween={50} slidesPerView={slidesToShow} className="post-widget--slider">
-      {relatedPost.map((post: any) => (
+      {relatedPost.map((post: PostItemProps) => (
         <SwiperSlide key={post.id} className="post-widget--slide-item">
           <PostItem data={post} simplified={categories && slug ? true : false} />
         </SwiperSlide>
@@ -95,7 +96,8 @@ export const PostWidget: FC<Props> = ({ slug, categories }) => {
 }
 
 // Fetch data at build time
-export async function getStaticProps({ params }: any) {
+// @ts-ignore
+export async function getStaticProps({ params }) {
   const data = await getPostDetails(params.slug)
   return {
     props: {
@@ -107,7 +109,8 @@ export async function getStaticProps({ params }: any) {
 export async function getStaticPaths() {
   const posts = await getPosts()
   return {
-    paths: posts.map(({ node: { slug } }: any) => ({ params: { slug } })),
+    // @ts-ignore
+    paths: posts.map(({ node: { slug } }) => ({ params: { slug } })),
     fallback: true,
   }
 }

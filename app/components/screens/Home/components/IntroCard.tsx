@@ -1,8 +1,10 @@
 import { Box, Grid, Typography, styled } from '@mui/material'
 import { FC } from 'react'
 
+import { CardsProps } from '@/shared/types/home'
+
 type Props = {
-  data: any
+  data: CardsProps
 }
 
 const Root = styled(Grid)(({ theme }) => ({

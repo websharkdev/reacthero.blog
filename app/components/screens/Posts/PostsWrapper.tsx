@@ -3,20 +3,21 @@ import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 
 import { getAllPosts, getCategoryPost } from '@/shared/api/home.api'
+import { PostItemProps } from '@/shared/types/home'
 
 import { PostItem } from './components'
 
 type Props = {
-  post?: any
+  post?: PostItemProps
 }
 
 const Root = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(12),
 }))
 
-export const PostsWrapper: FC<Props> = ({ post }) => {
+export const PostsWrapper: FC<Props> = (props) => {
   const router = useRouter()
-  const [data, setData] = useState([])
+  const [data, setData] = useState<PostItemProps[]>([])
 
   useEffect(() => {
     if (router.isReady) {
@@ -28,7 +29,7 @@ export const PostsWrapper: FC<Props> = ({ post }) => {
 
   return (
     <Root container spacing={10}>
-      {data?.map((post: any) => (
+      {data?.map((post: PostItemProps) => (
         <Grid item xs={12} md={6} lg={6} key={post.id}>
           <PostItem data={post} />
         </Grid>
@@ -38,7 +39,8 @@ export const PostsWrapper: FC<Props> = ({ post }) => {
 }
 
 // Fetch data at build time
-export async function getStaticProps({ params }: any) {
+// @ts-ignore
+export const getStaticProps = async ({ params }) => {
   const data = await getCategoryPost(params.slug)
   return {
     props: {
@@ -50,7 +52,8 @@ export async function getStaticProps({ params }: any) {
 export async function getStaticPaths() {
   const posts = await getAllPosts()
   return {
-    paths: posts.map(({ node: { slug } }: any) => ({ params: { slug } })),
+    // @ts-ignore
+    paths: posts.map(({ node: { slug } }) => ({ params: { slug } })),
     fallback: true,
   }
 }

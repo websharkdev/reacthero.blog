@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { SectionHeader } from '@/components/layout/SectionHeader'
 
-import { BlockProps } from '@/shared/types/home'
+import { BlockProps, CardsProps } from '@/shared/types/home'
 
 import { SocialMediaBG } from '@/assets/icons/backgrounds'
 import { Star } from '@/assets/icons/photos'
@@ -54,7 +54,7 @@ export const SocialMediaWrapper: FC<BlockProps> = ({ index, enName, name }) => {
       <Grid item xs={12} md={6} lg={8} flex={1}>
         {phone ? (
           <Swiper>
-            {SocialMediaCards.slice(1).map((card: any) => (
+            {SocialMediaCards.slice(1).map((card: CardsProps) => (
               <SwiperSlide key={card.id}>
                 <SocialMediaCard data={card} />
               </SwiperSlide>
@@ -62,8 +62,8 @@ export const SocialMediaWrapper: FC<BlockProps> = ({ index, enName, name }) => {
           </Swiper>
         ) : (
           <Grid container>
-            {SocialMediaCards.map((card, index) => (
-              <Grid item key={card.id} xs={0 === index ? 12 : 6} md={12} lg={6} flex={1} sx={{ overflow: 'hidden' }}>
+            {SocialMediaCards.map((card: CardsProps) => (
+              <Grid item key={card.id} xs={0 === +card.id ? 12 : 6} md={12} lg={6} flex={1} sx={{ overflow: 'hidden' }}>
                 <SocialMediaCard data={card} />
               </Grid>
             ))}

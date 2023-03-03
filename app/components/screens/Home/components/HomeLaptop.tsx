@@ -62,9 +62,14 @@ const Root = styled(Grid)(({ theme }) => ({
   },
 }))
 
+type ActionsProps = {
+  id: number
+  color: string
+}
+
 export const HeaderLaptop: FC<Props> = (props) => {
   const linesCounter = 26
-  const actions = [
+  const actions: ActionsProps[] = [
     {
       id: 0,
       color: '#FF5F5A',
@@ -95,7 +100,7 @@ export const HeaderLaptop: FC<Props> = (props) => {
         <Box className="display">
           <Box className="code">
             <Box className="actions" sx={{ display: 'flex', gap: 1, mb: 2.5 }}>
-              {actions.map((item: any) => (
+              {actions.map((item: ActionsProps) => (
                 <Box
                   key={item.id}
                   sx={{

@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from 'react'
 import styles from '@/screens/Home/home.module.sass'
 
 import { getRecentPosts } from '@/shared/api/home.api'
+import { BlockProps, PostItemProps } from '@/shared/types/home'
 
 import { BuyMeACoffeWrapper, HomeHeader, HomePosts, IntroWrapper, SocialMediaWrapper } from './components'
 import { HomePageData } from './data'
@@ -29,10 +30,14 @@ const Root = styled(Grid)(({ theme }) => ({
   },
 }))
 
+interface HomeBlockProps extends BlockProps {
+  component: string
+}
+
 export const Home: FC<Props> = (props) => {
-  const [data, setData] = useState({})
+  const [data, setData] = useState<PostItemProps[]>([])
   useEffect(() => {
-    getRecentPosts().then((res: any) => setData(res))
+    getRecentPosts().then((res: PostItemProps[]) => setData(res))
   }, [])
 
   return (
@@ -41,15 +46,19 @@ export const Home: FC<Props> = (props) => {
         <HomeHeader />
       </Grid>
 
-      {HomePageData.map(({ id, title, enName, component }: any) => (
-        <Grid item xs={12} className="container" key={id}>
-          {component === 'IntroWrapper' && <IntroWrapper index={`0${id + 1}`} enName={enName} name={title} />}
-          {component === 'HomePosts' && <HomePosts index={`0${id + 1}`} enName={enName} name={title} data={data} />}
-          {component === 'BuyMeACoffeWrapper' && (
-            <BuyMeACoffeWrapper index={`0${id + 1}`} enName={enName} name={title} />
+      {HomePageData.map((block: HomeBlockProps) => (
+        <Grid item xs={12} className="container" key={block.index}>
+          {block.component === 'IntroWrapper' && (
+            <IntroWrapper index={`0${+block.index + 1}`} enName={block.enName} name={block.name} />
           )}
-          {component === 'SocialMediaWrapper' && (
-            <SocialMediaWrapper index={`0${id + 1}`} enName={enName} name={title} />
+          {block.component === 'HomePosts' && (
+            <HomePosts index={`0${+block.index + 1}`} enName={block.enName} name={block.name} data={data} />
+          )}
+          {block.component === 'BuyMeACoffeWrapper' && (
+            <BuyMeACoffeWrapper index={`0${+block.index + 1}`} enName={block.enName} name={block.name} />
+          )}
+          {block.component === 'SocialMediaWrapper' && (
+            <SocialMediaWrapper index={`0${+block.index + 1}`} enName={block.enName} name={block.name} />
           )}
         </Grid>
       ))}

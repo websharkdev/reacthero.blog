@@ -1,8 +1,10 @@
 import { Box, Grid, Link, Typography, styled } from '@mui/material'
 import { FC } from 'react'
 
+import { CardsLinksProps, CardsProps } from '@/shared/types/home'
+
 type Props = {
-  data: any
+  data: CardsProps
 }
 
 const Root = styled(Grid)(({ theme }) => ({
@@ -37,11 +39,11 @@ export const SocialMediaCard: FC<Props> = ({ data }) => {
         </Box>
       </Grid>
       <Grid item xs={12}>
-        {text?.length > 0 ? (
+        {text ? (
           <Typography variant="body1">{text}</Typography>
-        ) : links?.length > 0 ? (
+        ) : links ? (
           <Grid container wrap="nowrap" direction="column">
-            {links.map((link: any) => (
+            {links.map((link: CardsLinksProps) => (
               <Grid item xs={12} key={link.id}>
                 <span>—</span>
                 <Link ml={2} href={link.link} target="_blank" rel="noopener noreferrer">

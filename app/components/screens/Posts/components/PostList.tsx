@@ -1,13 +1,13 @@
 import { Box, Grid, Typography, styled } from '@mui/material'
 import { FC } from 'react'
 
+import { rawTypeProps } from '@/shared/types/home'
+
 type Props = {
   data: any
-  variant: any
+  variant: 'numbered-list' | 'bulleted-list'
   index?: number
 }
-
-const Root = styled(Grid)(({ theme }) => ({}))
 
 const ListRecursive = ({ data, index, variant }: Props) => (
   <Box sx={{ display: 'flex' }}>
@@ -31,12 +31,12 @@ const ListRecursive = ({ data, index, variant }: Props) => (
   </Box>
 )
 
-export const PostList: FC<Props> = ({ variant, data, index }) => (
-  <Root container>
+export const PostList: FC<Props> = ({ variant, data }) => (
+  <Grid container>
     {data.children?.map((listItem: any, listID: number) => (
       <Grid item key={listID} xs={12} my={1}>
         <ListRecursive data={listItem} index={listID + 1} key={listID} variant={variant} />
       </Grid>
     ))}
-  </Root>
+  </Grid>
 )

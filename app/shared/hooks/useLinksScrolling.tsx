@@ -11,8 +11,10 @@ import {
 } from 'framer-motion'
 import { memo, useRef } from 'react'
 
+import { LinkProps } from '../types/home'
+
 interface ParallaxProps {
-  data: any
+  data: LinkProps[]
   baseVelocity: number
   fontSize?: number
   inView?: boolean
@@ -44,11 +46,11 @@ const ParallaxBody = styled(Box)(({ theme }) => ({
   },
 }))
 
-const ParallaxLinkChildren = (NumberOfSpan: number, data: any) => (
+const ParallaxLinkChildren = (NumberOfSpan: number, data: LinkProps[]) => (
   <>
     {[...Array(NumberOfSpan)].map((e, i) => (
       <span key={i}>
-        {data.map((item: any) => (
+        {data.map((item: LinkProps) => (
           <MuiLink href={item.href} key={item.id} mx={1.5} className="parallax-link--children-item">
             {item.name}
           </MuiLink>

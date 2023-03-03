@@ -1,7 +1,7 @@
-import { Box, Divider, Grid, Rating, Typography, styled } from '@mui/material'
+import { Box, Chip, Divider, Grid, Rating, Typography, styled } from '@mui/material'
 import { FC, useEffect, useState } from 'react'
 
-import { PostItemDetailsProps } from '@/shared/types/home'
+import { PostDetailsRawChildrenProps, PostItemDetailsProps } from '@/shared/types/home'
 
 import { PostAutor, PostLinks } from './components'
 import { PostContent, PostWidget } from './index'
@@ -42,12 +42,33 @@ export const PostItemWrapper: FC<Props> = ({ post }) => {
 
   return (
     <Root container rowSpacing={4}>
-      <Grid item xs={12} sx={{ pt: '0 !important' }}>
+      <Grid item xs={12} sx={{ pt: '0 !important', position: 'relative', zIndex: 11 }}>
         <img
           src={post.featuredImage.url}
           alt={`${post.title.split(' ').join('_')}--image`}
           className="post_item-details--image"
+          style={{
+            width: '100%',
+            position: 'relative',
+            zIndex: 11,
+          }}
         />
+        {post.hashtag && post.hashtag.length > 0 && (
+          <Box
+            sx={{
+              position: 'absolute',
+              right: 25,
+              bottom: 25,
+              zIndex: 15,
+            }}
+          >
+            <Chip
+              sx={{ width: 'max-content' }}
+              size="medium"
+              label={`#${post.hashtag[post.hashtag.length - 1]?.tag}`}
+            />
+          </Box>
+        )}
       </Grid>
       <Grid item xs={12}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -75,7 +96,7 @@ export const PostItemWrapper: FC<Props> = ({ post }) => {
       </Grid>
       <Grid item xs={12}>
         <Grid container rowSpacing={2} sx={{ height: 'max-content' }}>
-          {post.content.raw.children.map((content: any, index: number) => (
+          {post.content.raw.children.map((content: PostDetailsRawChildrenProps, index: number) => (
             <Grid item xs={12} key={`${post.id}_${index}`}>
               <PostContent data={content} />
             </Grid>

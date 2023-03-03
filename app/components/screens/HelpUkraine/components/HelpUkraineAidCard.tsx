@@ -1,8 +1,10 @@
 import { Box, Grid, Link as MuiLink, Typography, styled } from '@mui/material'
 import { FC } from 'react'
 
+import { HelpAidProps, LinkProps } from '@/shared/types/home'
+
 type Props = {
-  data: any
+  data: HelpAidProps
 }
 
 const Root = styled(Grid)(({ theme }) => ({
@@ -43,9 +45,9 @@ export const HelpUkraineAidCard: FC<Props> = ({ data }) => {
         </Typography>
 
         <Box sx={{ gap: 2, display: 'flex', mt: 4 }}>
-          {read_more.map((item: any) => (
-            <MuiLink href={item.link} className="parallax-link--children-item" key={item.id}>
-              {item.title}
+          {read_more.map((item: LinkProps) => (
+            <MuiLink href={item.href} className="parallax-link--children-item" key={item.id}>
+              {item.name}
             </MuiLink>
           ))}
         </Box>
@@ -56,8 +58,8 @@ export const HelpUkraineAidCard: FC<Props> = ({ data }) => {
         </Box>
       </Grid>
       <Grid item xs={12} className="aid-link-container">
-        <MuiLink href={link.link} className="parallax-link--children-item">
-          {link.title}
+        <MuiLink href={link.href} className="parallax-link--children-item">
+          {link.name}
         </MuiLink>
       </Grid>
     </Root>

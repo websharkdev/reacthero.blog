@@ -3,6 +3,8 @@ import moment from 'moment'
 import Image from 'next/image'
 import { FC, useEffect, useState } from 'react'
 
+import { PhoneNotificationProps } from '@/shared/types/home'
+
 import { SMPhoneImage } from '@/assets/icons/photos'
 
 import { PhoneNotioficationsData } from '../../../data'
@@ -72,7 +74,7 @@ export const SocialMediaPhone: FC<Props> = (props) => {
 
       <Grid item className="screen-notifications">
         <Grid container wrap="nowrap" direction="column" rowSpacing={4}>
-          {PhoneNotioficationsData.map((notification: any) => (
+          {PhoneNotioficationsData.map((notification: PhoneNotificationProps) => (
             <Grid
               item
               xs={12}
@@ -92,10 +94,6 @@ export const SocialMediaPhone: FC<Props> = (props) => {
       <Box sx={{ position: 'absolute', zIndex: -1 }}>
         <Image src={SMPhoneImage} alt="SMPhone-image" width={386} height={783} />
       </Box>
-      {/* <Grid item>
-        <Typography>{moment(dateState).format('H:m')}</Typography>
-        <Typography>{moment(dateState).format('H:m')}</Typography>
-      </Grid> */}
     </Root>
   )
 }

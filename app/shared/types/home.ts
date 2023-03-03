@@ -35,6 +35,12 @@ export type ButtonProps = {
   link: string
 }
 
+export type LinkProps = {
+  id: string
+  href: string
+  name: string
+}
+
 export type gpqImage = {
   url: string
 }
@@ -61,6 +67,7 @@ export enum rawTypeProps {
   'heading-six' = 13,
   'code-block' = 14,
   'iframe' = 15,
+  'body1' = 16,
 }
 
 export type PostDetailsRawChildrenTextProps = {
@@ -69,10 +76,6 @@ export type PostDetailsRawChildrenTextProps = {
   underline?: boolean
   italic?: boolean
   code?: boolean
-}
-
-export type BlockQuoteProps = {
-  children: PostDetailsRawChildrenTextProps[]
 }
 
 export type PostDetailsRawChildrenLinkProps = {
@@ -86,7 +89,7 @@ export type PostDetailsRawChildrenLinkProps = {
 export type PostDetailsRawChildrenImageProps = {
   children: PostDetailsRawChildrenTextProps[]
   handle: string
-  height: 768
+  height: number
   mimeType: string
   src: string
   title: string
@@ -96,15 +99,24 @@ export type PostDetailsRawChildrenImageProps = {
 
 export type PostDetailsRawChildrenProps = {
   type: rawTypeProps
-  children: PostDetailsRawChildrenTextProps[]
+  children: PostDetailsRawChildrenTextProps[] | PostDetailsRawChildrenTextProps
+  className?: string
+  height?: number
+  url?: string
+  width?: number
+  handle?: string
+  mimeType?: string
+  src?: string
+  title?: string
 }
 
 export type PostDetailsRawProps = {
-  children:
-    | PostDetailsRawChildrenProps[]
-    | PostDetailsRawChildrenImageProps[]
-    | PostDetailsRawChildrenLinkProps[]
-    | BlockQuoteProps[]
+  children: PostDetailsRawChildrenProps[] | PostDetailsRawChildrenImageProps[] | PostDetailsRawChildrenLinkProps[]
+}
+
+export type PostHashtagProps = {
+  id: string
+  tag: string
 }
 
 export type PostItemDetailsProps = {
@@ -119,7 +131,10 @@ export type PostItemDetailsProps = {
   id: string
   slug: string
   title: string
+  hashtag: PostHashtagProps[]
 }
+
+export type PostItemProps = Omit<PostItemDetailsProps, 'categories' | 'author'>
 
 type ImageSProps = {
   xs?: number[]
@@ -135,6 +150,35 @@ export type BlockProps = {
   name: string
 }
 
+export type PhoneNotificationProps = {
+  id: string
+  ago: string | number
+  title: string
+  text: string
+}
+
+export type CardsLinksProps = Omit<SocialMediaProps, 'icon'>
+
+export type CardsProps = {
+  id: string
+  title: string
+  text?: string
+  links?: CardsLinksProps[]
+  featured: boolean
+}
+
+type Icon = {
+  fileName: string
+  url: string
+}
+
+export type SocialMediaProps = {
+  icon: Icon
+  id: string
+  link: string
+  title: string
+}
+
 export type PhotoContainerProps = {
   mainPhoto?: ImageProps
   photoBG?: ImageProps
@@ -142,4 +186,19 @@ export type PhotoContainerProps = {
   size?: ImageSProps
   shift?: ImageSProps
   className?: string
+}
+
+export type HelpAidProps = {
+  id: number
+  image: string
+  link: LinkProps
+  read_more: LinkProps[]
+  text: string
+  title: string
+}
+
+export type HelpUkraineProps = {
+  aids: HelpAidProps[]
+  section: string
+  text: string
 }

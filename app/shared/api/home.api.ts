@@ -120,6 +120,11 @@ export const getPostDetails = async (slug: string) => {
           name
           slug
         }
+        hashtag {
+          id
+          tag
+          stage
+        }
       }
     }
   `
@@ -169,7 +174,7 @@ export const getSocialMedia = async () => {
 
   const result = await request(graphqlAPI!, query)
 
-  return result
+  return result.socialMedias
 }
 
 // export const getAdjacentPosts = async (createdAt, slug) => {

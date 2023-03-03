@@ -3,12 +3,14 @@ import moment from 'moment'
 import Image from 'next/image'
 import { FC, useState } from 'react'
 
+import { PostItemProps } from '@/shared/types/home'
+
 import { LikeActiveIcon, LikeOnActiveIcon } from '@/assets/icons/ui'
 
 import { PostCopyLink } from './PostLinks'
 
 type Props = {
-  data: any
+  data: PostItemProps
   simplified?: boolean
 }
 

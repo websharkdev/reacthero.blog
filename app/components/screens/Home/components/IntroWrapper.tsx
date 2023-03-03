@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { SectionHeader } from '@/components/layout/SectionHeader'
 
-import { BlockProps } from '@/shared/types/home'
+import { BlockProps, CardsProps } from '@/shared/types/home'
 
 import { HeaderBG } from '@/assets/icons/backgrounds'
 import { Star } from '@/assets/icons/photos'
@@ -59,7 +59,7 @@ export const IntroWrapper: FC<BlockProps> = ({ index, enName, name }) => {
       <Grid item xs={12} md={10} xl={8} className="intro-wrapper-cards">
         {tablet ? (
           <Swiper>
-            {IntroCards.slice(1).map((card: any) => (
+            {IntroCards.slice(1).map((card: CardsProps) => (
               <SwiperSlide key={card.id}>
                 <IntroCard data={card} />
               </SwiperSlide>
@@ -67,8 +67,8 @@ export const IntroWrapper: FC<BlockProps> = ({ index, enName, name }) => {
           </Swiper>
         ) : (
           <Grid container alignItems="center">
-            {IntroCards.map((card: any, index: number) => (
-              <Grid item xs={0 === index ? 12 : 6} md={6} flex={1} key={card.id}>
+            {IntroCards.map((card: CardsProps) => (
+              <Grid item xs={0 === +card.id ? 12 : 6} md={6} flex={1} key={card.id}>
                 <IntroCard data={card} />
               </Grid>
             ))}

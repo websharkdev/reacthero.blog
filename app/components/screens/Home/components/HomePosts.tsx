@@ -8,10 +8,10 @@ import { SectionHeader } from '@/components/layout/SectionHeader'
 import { PostItem } from '@/components/screens/Posts'
 
 import { useWidth } from '@/shared/hooks'
-import { BlockProps } from '@/shared/types/home'
+import { BlockProps, PostItemProps } from '@/shared/types/home'
 
 const Root = styled(Grid)(({ theme }) => ({
-  padding: theme.spacing(12),
+  padding: theme.spacing(8),
   overflow: 'hidden',
   [theme.breakpoints.down('lg')]: {
     padding: theme.spacing(8),
@@ -22,7 +22,7 @@ const Root = styled(Grid)(({ theme }) => ({
 }))
 
 interface Props extends BlockProps {
-  data: any
+  data: PostItemProps[]
 }
 
 export const HomePosts: FC<Props> = ({ data, index, enName, name }) => {
@@ -70,7 +70,7 @@ export const HomePosts: FC<Props> = ({ data, index, enName, name }) => {
       <Grid item xs={12}>
         <Swiper style={{ overflow: 'visible' }} slidesPerView={slidesToShow} spaceBetween={slidesSpacing}>
           {data.length > 0 &&
-            data.map((post: any) => (
+            data.map((post: PostItemProps) => (
               <SwiperSlide key={post.createdAt}>
                 <PostItem data={post} />
               </SwiperSlide>

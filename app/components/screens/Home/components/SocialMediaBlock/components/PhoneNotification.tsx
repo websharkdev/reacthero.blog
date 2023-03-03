@@ -2,8 +2,10 @@ import { Box, Grid, Typography, styled } from '@mui/material'
 import moment from 'moment'
 import { FC } from 'react'
 
+import { PhoneNotificationProps } from '@/shared/types/home'
+
 type Props = {
-  data: any
+  data: PhoneNotificationProps
 }
 
 const Root = styled(Grid)(({ theme }) => ({

@@ -2,7 +2,9 @@ import { Grid, Typography, styled } from '@mui/material'
 import moment from 'moment'
 import { FC } from 'react'
 
-type Props = { data: any }
+import { PostItemDetailsProps } from '@/shared/types/home'
+
+type Props = { data: PostItemDetailsProps }
 
 const Root = styled(Grid)(({ theme }) => ({}))
 
