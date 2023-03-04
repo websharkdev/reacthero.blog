@@ -1,7 +1,6 @@
 import { Grid, styled } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
-
 import { getAllPosts, getCategoryPost } from '@/shared/api/home.api'
 import { PostItemProps } from '@/shared/types/home'
 
