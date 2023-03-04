@@ -1,37 +1,58 @@
 import { Grid, styled } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
-
-import { getCategoryPost } from '@/shared/api/home.api'
+import { getAllPosts, getCategoryPost } from '@/shared/api/home.api'
+import { PostItemProps } from '@/shared/types/home'
 
 import { PostItem } from './components'
 
-type Props = {}
+type Props = {
+  post?: PostItemProps
+}
 
 const Root = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(12),
 }))
 
-export const PostsWrapper: FC<Props> = () => {
+export const PostsWrapper: FC<Props> = (props) => {
   const router = useRouter()
+  const [data, setData] = useState<PostItemProps[]>([])
 
-  const [categoryData, setCategoryData] = useState<string[]>([])
   useEffect(() => {
-    if (router.isFallback === false && router.query.slug) {
-      getCategoryPost(router.query.slug.toString()).then((res) => {
-        setCategoryData(res)
-      })
+    if (router.isReady) {
+      router.query.slug
+        ? getCategoryPost(router.query.slug.toString()).then((res) => setData(res))
+        : getAllPosts().then((res) => setData(res.posts))
     }
-  }, [])
+  }, [router.query.slug])
 
   return (
-    <Root container spacing={12}>
-      {categoryData.length > 0 &&
-        categoryData.map((post: any) => (
-          <Grid item xs={12} md={6} key={post.node.createdAt}>
-            <PostItem data={post.node} />
-          </Grid>
-        ))}
+    <Root container spacing={10}>
+      {data?.map((post: PostItemProps) => (
+        <Grid item xs={12} md={6} lg={6} key={post.id}>
+          <PostItem data={post} />
+        </Grid>
+      ))}
     </Root>
   )
+}
+
+// Fetch data at build time
+// @ts-ignore
+export const getStaticProps = async ({ params }) => {
+  const data = await getCategoryPost(params.slug)
+  return {
+    props: {
+      post: data,
+    },
+  }
+}
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts()
+  return {
+    // @ts-ignore
+    paths: posts.map(({ node: { slug } }) => ({ params: { slug } })),
+    fallback: true,
+  }
 }

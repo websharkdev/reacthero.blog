@@ -14,7 +14,6 @@ type Props = { animated?: boolean; simplified?: boolean }
 const Root = styled(Grid)(({ theme }) => ({
   display: 'flex',
   flexWrap: 'nowrap',
-  marginBottom: theme.spacing(2),
   justifyContent: 'space-between',
   alignItems: 'center',
   position: 'relative',
@@ -22,7 +21,10 @@ const Root = styled(Grid)(({ theme }) => ({
 
   width: '100%',
   margin: '0 auto',
-  padding: theme.spacing(10),
+  padding: `${theme.spacing(4)} ${theme.spacing(10)}`,
+  [theme.breakpoints.down('xl')]: {
+    padding: theme.spacing(4),
+  },
   background: theme.palette.background.default,
   [theme.breakpoints.down('sm')]: {
     padding: '24px 20px',
@@ -30,6 +32,10 @@ const Root = styled(Grid)(({ theme }) => ({
   '& .wrapper--menu-button': {
     width: 55,
     height: 55,
+    [theme.breakpoints.down('xl')]: {
+      width: 36,
+      height: 36,
+    },
     background: '#fff',
     borderRadius: 0,
   },
@@ -39,20 +45,20 @@ export const Header: FC<Props> = ({ animated, simplified = false }) => {
   const [headerMenu, setHeaderMenu] = useState(false)
 
   return (
-    <Root container className="wrapper" columnSpacing={3}>
+    <Root container className="wrapper">
       <Grid item>
         <Logo animated={animated} />
       </Grid>
       {!simplified && (
         <Grid item>
           <IconButton className="wrapper--menu-button" onClick={() => setHeaderMenu(!headerMenu)}>
-            <Image src={BurgerClosedIcon} />
+            <Image src={BurgerClosedIcon} alt="burger-menu-icon" />
           </IconButton>
         </Grid>
       )}
 
       <Drawer open={headerMenu} anchor="right" onClose={() => setHeaderMenu(!headerMenu)}>
-        <Menu unstyled />
+        <Menu unstyled setHeaderMenu={setHeaderMenu} headerMenu={headerMenu} />
       </Drawer>
     </Root>
   )

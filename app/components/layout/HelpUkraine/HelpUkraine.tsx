@@ -24,7 +24,7 @@ export const HelpUkraine = () => {
   const [innerRef, inView] = useInView()
   return (
     <Root ref={innerRef}>
-      <ParallaxLink data={HelpUkraine_data} baseVelocity={-0.05} fontSize={18} inView={inView} />
+      <ParallaxLink data={HelpUkraine_data} baseVelocity={2} fontSize={18} inView={inView} />
     </Root>
   )
 }

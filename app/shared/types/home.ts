@@ -1,4 +1,4 @@
-import { ImageProps } from 'next/image'
+import { ImageProps } from 'next/dist/client/image'
 
 export interface Image {
   src: string
@@ -7,7 +7,7 @@ export interface Image {
 }
 
 export interface ImageHelpUkraineProps {
-  id: number
+  id: string
   src: string
   alt: string
 }
@@ -19,16 +19,26 @@ export interface HomeSwiperItem {
 
 export type LanguageProps = 'en' | 'es' | 'uk' | 'ru'
 
-export type MenuItem = {
+export type CategoryRelatedItemProps = {
+  title: string
+  id: string
+}
+export type MenuItemProps = {
   id: string
   name: string
   slug: string
-  relate: string
+  categoryRelateds: CategoryRelatedItemProps[]
 }
 
 export type ButtonProps = {
   name: string
   link: string
+}
+
+export type LinkProps = {
+  id: string
+  href: string
+  name: string
 }
 
 export type gpqImage = {
@@ -57,6 +67,7 @@ export enum rawTypeProps {
   'heading-six' = 13,
   'code-block' = 14,
   'iframe' = 15,
+  'body1' = 16,
 }
 
 export type PostDetailsRawChildrenTextProps = {
@@ -65,10 +76,6 @@ export type PostDetailsRawChildrenTextProps = {
   underline?: boolean
   italic?: boolean
   code?: boolean
-}
-
-export type BlockQuoteProps = {
-  children: PostDetailsRawChildrenTextProps[]
 }
 
 export type PostDetailsRawChildrenLinkProps = {
@@ -82,7 +89,7 @@ export type PostDetailsRawChildrenLinkProps = {
 export type PostDetailsRawChildrenImageProps = {
   children: PostDetailsRawChildrenTextProps[]
   handle: string
-  height: 768
+  height: number
   mimeType: string
   src: string
   title: string
@@ -92,20 +99,29 @@ export type PostDetailsRawChildrenImageProps = {
 
 export type PostDetailsRawChildrenProps = {
   type: rawTypeProps
-  children: PostDetailsRawChildrenTextProps[]
+  children: PostDetailsRawChildrenTextProps[] | PostDetailsRawChildrenTextProps
+  className?: string
+  height?: number
+  url?: string
+  width?: number
+  handle?: string
+  mimeType?: string
+  src?: string
+  title?: string
 }
 
 export type PostDetailsRawProps = {
-  children:
-    | PostDetailsRawChildrenProps[]
-    | PostDetailsRawChildrenImageProps[]
-    | PostDetailsRawChildrenLinkProps[]
-    | BlockQuoteProps[]
+  children: PostDetailsRawChildrenProps[] | PostDetailsRawChildrenImageProps[] | PostDetailsRawChildrenLinkProps[]
+}
+
+export type PostHashtagProps = {
+  id: string
+  tag: string
 }
 
 export type PostItemDetailsProps = {
   author: AuthorProps
-  categories: MenuItem[]
+  categories: MenuItemProps[]
   content: {
     raw: PostDetailsRawProps
   }
@@ -115,4 +131,79 @@ export type PostItemDetailsProps = {
   id: string
   slug: string
   title: string
+  hashtag: PostHashtagProps[]
+}
+
+export type PostItemProps = Omit<PostItemDetailsProps, 'categories' | 'author'>
+
+type ImageSProps = {
+  xs?: number[]
+  sm?: number[]
+  md?: number[]
+  lg?: number[]
+  xl?: number[]
+}
+
+export type BlockProps = {
+  index: string
+  enName: string
+  name: string
+}
+
+export type PhoneNotificationProps = {
+  id: string
+  ago: string | number
+  title: string
+  text: string
+}
+
+export type CardsLinksProps = Omit<SocialMediaProps, 'icon'>
+
+export type CardsProps = {
+  id: string
+  title: string
+  text?: string
+  links?: CardsLinksProps[]
+  featured: boolean
+}
+
+type Icon = {
+  fileName: string
+  url: string
+}
+
+export type SocialMediaProps = {
+  icon: Icon
+  id: string
+  link: string
+  title: string
+}
+
+export type PhotoContainerProps = {
+  mainPhoto?: ImageProps
+  photoBG?: ImageProps
+  position?: 'default' | 'unStyled' | 'block' | 'background'
+  size?: ImageSProps
+  shift?: ImageSProps
+  className?: string
+}
+
+export type HelpAidProps = {
+  id: string
+  image: string
+  link: LinkProps
+  read_more: LinkProps[]
+  text: string
+  name: string
+}
+
+export type HelpUkraineFinanciallyProps = {
+  aids: HelpAidProps[]
+  section: string
+  text: string
+}
+
+export type ParallaxTextProps = {
+  id: string
+  text: string
 }

@@ -1,15 +1,13 @@
-import { Box, Button, Divider, Grid, Link, Typography, styled } from '@mui/material'
+import { Divider, Grid, styled } from '@mui/material'
 import { FC, useEffect, useState } from 'react'
-import { useLanguage } from 'shared/hooks/useLanguage'
-import { LanguageProps } from 'shared/types/home'
 
 import styles from '@/screens/Home/home.module.sass'
 
 import { getRecentPosts } from '@/shared/api/home.api'
+import { BlockProps, PostItemProps } from '@/shared/types/home'
 
-import { HomeHeader, HomePosts } from './components'
-
-// import { user_data } from './data'
+import { BuyMeACoffeWrapper, HomeHeader, HomePosts, IntroWrapper, SocialMediaWrapper } from './components'
+import { HomePageData } from './data'
 
 type Props = {}
 
@@ -19,27 +17,27 @@ const Root = styled(Grid)(({ theme }) => ({
   flexDirection: 'column',
   minHeight: '75vh',
   position: 'relative',
+  overflow: 'hidden',
+  paddingBottom: theme.spacing(12),
   '& .container-fluid': {
     width: '100%',
   },
   '& .container': {
     width: 'calc(100% - 68px)',
+    [theme.breakpoints.down('md')]: {
+      width: 'calc(100% - 32px)',
+    },
   },
 }))
 
-export const Home: FC<Props> = (props) => {
-  // const [language, setLanguage] = useState<LanguageProps>('en')
-  const [data, setData] = useState({})
-  // useLanguage({
-  //   dataEN: user_data,
-  //   dataRU: user_data,
-  //   setData,
-  //   language,
-  //   setLanguage,
-  // })
+interface HomeBlockProps extends BlockProps {
+  component: string
+}
 
+export const Home: FC<Props> = (props) => {
+  const [data, setData] = useState<PostItemProps[]>([])
   useEffect(() => {
-    getRecentPosts().then((res: any) => setData(res))
+    getRecentPosts().then((res: PostItemProps[]) => setData(res))
   }, [])
 
   return (
@@ -47,9 +45,23 @@ export const Home: FC<Props> = (props) => {
       <Grid item xs={12} className="container-fluid">
         <HomeHeader />
       </Grid>
-      <Grid item xs={12} className="container-fluid">
-        <HomePosts data={data} />
-      </Grid>
+
+      {HomePageData.map((block: HomeBlockProps) => (
+        <Grid item xs={12} className="container" key={block.index}>
+          {block.component === 'IntroWrapper' && (
+            <IntroWrapper index={`0${+block.index + 1}`} enName={block.enName} name={block.name} />
+          )}
+          {block.component === 'HomePosts' && (
+            <HomePosts index={`0${+block.index + 1}`} enName={block.enName} name={block.name} data={data} />
+          )}
+          {block.component === 'BuyMeACoffeWrapper' && (
+            <BuyMeACoffeWrapper index={`0${+block.index + 1}`} enName={block.enName} name={block.name} />
+          )}
+          {block.component === 'SocialMediaWrapper' && (
+            <SocialMediaWrapper index={`0${+block.index + 1}`} enName={block.enName} name={block.name} />
+          )}
+        </Grid>
+      ))}
     </Root>
   )
 }

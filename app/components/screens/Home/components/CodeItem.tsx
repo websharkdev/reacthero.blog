@@ -28,11 +28,25 @@ export const CodeItem: FC<Props> = ({ children }) => {
   const purpluleWords = ['import', 'from', 'type', 'export', 'const', 'return']
   const redWords = ['Root', 'Grid', 'Typography', 'br', 'styled', '</Typography>']
   const blueWords = ['PreloaderWrapper', 'Props', 'data', 'setData']
-  const goldWords = ['container', 'item', 'className', 'variant', 'xs', 'mr', 'theme']
+  const goldWords = [
+    'container',
+    'item',
+    'variant',
+    'xs',
+    'mr',
+    'theme',
+    'width',
+    'display',
+    'minHeight',
+    'justifyContent',
+    'padding',
+    'height',
+  ]
+
   const [className, setClassName] = useState('white')
 
   const text = children
-    .replace(/[|&;$%@"<>()+,='{}/]/g, ' ')
+    .replace(/[|&;:$%@"<>()+,='{}%/]/g, ' ')
     .replace(/[0-9]/g, ' ')
     .toString()
     .trim()
@@ -51,5 +65,5 @@ export const CodeItem: FC<Props> = ({ children }) => {
     }
   }, [])
 
-  return <CodeWrapper className={className}> {children}</CodeWrapper>
+  return <CodeWrapper className={className}> {children.toString()}</CodeWrapper>
 }

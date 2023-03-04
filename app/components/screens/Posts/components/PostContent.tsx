@@ -1,8 +1,8 @@
-import { Box, Divider, Grid, Link as MuiLink, Tooltip, Typography, styled } from '@mui/material'
+import { Box, Divider, Grid, Link as MuiLink, Tooltip, Typography, styled, useMediaQuery } from '@mui/material'
 import { Variant } from '@mui/material/styles/createTypography'
 import { FC, memo, useEffect, useState } from 'react'
 
-import { rawTypeProps } from '@/shared/types/home'
+import { PostDetailsRawChildrenProps, rawTypeProps } from '@/shared/types/home'
 
 import { PostList } from './PostList'
 import { PostTable } from './PostTable'
@@ -12,6 +12,7 @@ type Props = {
 }
 
 const Root = styled(Box)(({ theme }) => ({
+  height: 'max-content',
   '& .code': {
     background: '#f6f6f6',
     border: '1px solid #ccc',
@@ -50,35 +51,19 @@ const PostTextContent = memo(({ data, variant }: any) => {
       ) : (
         <>
           {!isHasAChild && data.text?.trim().length ? (
-            <>
-              {!isHasAChild && data.code ? (
-                <Typography
-                  variant={variant || (data.bold ? 'body2' : 'body1')}
-                  sx={{
-                    fontStyle: italic,
-                    textDecoration: underline,
-                    display: 'inline',
-                  }}
-                  component="div"
-                  className={data.code ? 'code' : ''}
-                >
-                  {data.text}
-                </Typography>
-              ) : (
-                <Typography
-                  variant={variant || (data.bold ? 'body2' : 'body1')}
-                  sx={{
-                    fontStyle: italic,
-                    textDecoration: underline,
-                    fontWeight: data.bold && 700,
-                    display: 'inline',
-                  }}
-                  component="div"
-                >
-                  {data.text}
-                </Typography>
-              )}
-            </>
+            <Typography
+              variant={variant || (data.bold ? 'body2' : 'body1')}
+              sx={{
+                fontStyle: italic,
+                textDecoration: underline,
+                fontWeight: data.bold && 700,
+                display: 'inline',
+              }}
+              component="div"
+              className={data.code ? 'code' : ''}
+            >
+              {data.text}
+            </Typography>
           ) : (
             <br />
           )}
@@ -92,18 +77,21 @@ export const PostContent: FC<Props> = ({ data }) => {
   const [variant, setVariant] = useState<Variant>('body1')
   const [looped, setLooped] = useState<number>(0)
   const [content, setContent] = useState<string[]>([])
-  const globalArr: any = []
+  const contentArr: string[] = []
+
+  const tablet = useMediaQuery((theme) =>
+    // @ts-ignore
+    theme.breakpoints.down('md')
+  )
 
   const hasChildren = (data: any) => {
-    const isHasAChild = data.children?.length
-
-    if (isHasAChild > 0) {
+    if (data.children?.length) {
       data.children.forEach((child: any) => {
         hasChildren(child)
         setLooped(looped + 1)
       })
     } else {
-      globalArr.push(data.text)
+      contentArr.push(data.text)
     }
   }
 
@@ -112,7 +100,7 @@ export const PostContent: FC<Props> = ({ data }) => {
       hasChildren(data)
 
       // @ts-ignore
-      setContent([...new Set(globalArr)])
+      setContent([...new Set(contentArr)])
     }
 
     data.type === rawTypeProps[4] ? checkContent() : null
@@ -150,7 +138,7 @@ export const PostContent: FC<Props> = ({ data }) => {
           <PostTextContent key={`paragraph__${index}`} data={content} />
         ))}
       {/* title */}
-      {variant !== 'body1' &&
+      {variant !== rawTypeProps[16] &&
         data.children.map((content: any, index: number) => (
           <PostTextContent data={content} key={`titles__${index}`} variant={variant} />
         ))}
@@ -169,7 +157,7 @@ export const PostContent: FC<Props> = ({ data }) => {
       {/* image */}
       {data.type === rawTypeProps[1] && (
         <Grid item xs="auto">
-          <img src={data.src} alt={data.title} />
+          <img src={data.src} alt={data.title} width="100%" />
         </Grid>
       )}
 
@@ -177,11 +165,7 @@ export const PostContent: FC<Props> = ({ data }) => {
       {data.type === rawTypeProps[4] &&
         content.map((item: string, index: number) => (
           <Box key={`recursia__${index}`}>
-            {item.trim().length ? (
-              <Typography component="div">
-                {item} — {looped}
-              </Typography>
-            ) : null}
+            {item.trim().length ? <Typography component="div">{item}</Typography> : null}
           </Box>
         ))}
 
@@ -205,8 +189,8 @@ export const PostContent: FC<Props> = ({ data }) => {
       {/* iframe */}
       {data.type === rawTypeProps[15] && (
         <iframe
-          width={data.width}
-          height={data.height}
+          width={tablet ? '100%' : data.width}
+          height={tablet ? 'auto' : data.height}
           src={data.url}
           title={data.url}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

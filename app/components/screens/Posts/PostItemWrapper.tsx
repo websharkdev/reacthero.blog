@@ -1,10 +1,9 @@
-import { Grid, Typography, styled } from '@mui/material'
-import { useRouter } from 'next/router'
+import { Box, Chip, Divider, Grid, Rating, Typography, styled } from '@mui/material'
 import { FC, useEffect, useState } from 'react'
 
-import { getCategories } from '@/shared/api/home.api'
-import { MenuItem, PostItemDetailsProps } from '@/shared/types/home'
+import { PostDetailsRawChildrenProps, PostItemDetailsProps } from '@/shared/types/home'
 
+import { PostAutor, PostLinks } from './components'
 import { PostContent, PostWidget } from './index'
 
 type Props = {
@@ -13,47 +12,124 @@ type Props = {
 
 const Root = styled(Grid)(({ theme }) => ({
   width: 'calc(100% - 178px)',
+  padding: theme.spacing(4.5),
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2),
+    width: 'calc(100% - 32px)',
+  },
   margin: '0 auto',
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'center',
   background: '#D5E4F2',
-  padding: theme.spacing(8),
   height: 'max-content',
+  marginBottom: theme.spacing(12),
   '& .post_item-details--image': {
     width: '100%',
   },
 }))
 
 export const PostItemWrapper: FC<Props> = ({ post }) => {
-  const url = useRouter()
-  const [categoryData, setCategoryData] = useState<MenuItem[]>([])
+  const [currentCategory, setCurrentCategory] = useState<string[]>([])
+  const [value, setValue] = useState<number | null>(4.5)
   useEffect(() => {
-    getCategories().then((res) => setCategoryData(res))
+    const arr: string[] = []
+    post.categories.map((category) => {
+      arr.push(category.slug)
+    })
+
+    arr.length > 0 ? setCurrentCategory(arr) : null
   }, [])
+
   return (
     <Root container rowSpacing={4}>
-      <Grid item xs={12}>
+      <Grid item xs={12} sx={{ pt: '0 !important', position: 'relative', zIndex: 11 }}>
         <img
           src={post.featuredImage.url}
           alt={`${post.title.split(' ').join('_')}--image`}
           className="post_item-details--image"
+          style={{
+            width: '100%',
+            position: 'relative',
+            zIndex: 11,
+          }}
         />
+        {post.hashtag && post.hashtag.length > 0 && (
+          <Box
+            sx={{
+              position: 'absolute',
+              right: 25,
+              bottom: 25,
+              zIndex: 15,
+            }}
+          >
+            <Chip
+              sx={{ width: 'max-content' }}
+              size="medium"
+              label={`#${post.hashtag[post.hashtag.length - 1]?.tag}`}
+            />
+          </Box>
+        )}
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="h2">{post.title}</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography variant="h2" sx={{ mb: 4 }}>
+            {post.title}
+          </Typography>
+          <Box
+            sx={{
+              mb: 4,
+              gap: 2,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            <Typography variant="body2">
+              ~{Math.ceil(JSON.stringify(post.content.raw).trim().split(/\s+/).length / 155)} min. read
+            </Typography>
+            <PostLinks />
+          </Box>
+        </Box>
+
+        <Divider />
       </Grid>
       <Grid item xs={12}>
-        <Grid container rowSpacing={2}>
-          {post.content.raw.children.map((content: any, index: number) => (
+        <Grid container rowSpacing={2} sx={{ height: 'max-content' }}>
+          {post.content.raw.children.map((content: PostDetailsRawChildrenProps, index: number) => (
             <Grid item xs={12} key={`${post.id}_${index}`}>
               <PostContent data={content} />
             </Grid>
           ))}
         </Grid>
       </Grid>
-      {/* @ts-ignore */}
-      <PostWidget categories={post.categories.map((category) => category.slug)} slug={url.query.slug} />
+
+      <Grid item xs={12}>
+        <Grid container rowSpacing={6} justifyContent="space-between" alignItems="center">
+          <Grid item xs={12} children={<Divider />} />
+          <Grid item xs="auto" children={<PostAutor data={post} />} />
+          <Grid item xs="auto">
+            <Rating
+              name="simple-controlled"
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue)
+              }}
+              getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
+              precision={0.5}
+            />
+
+            <PostLinks />
+          </Grid>
+          <Grid item xs={12} children={<Divider />} />
+        </Grid>
+      </Grid>
+
+      <Grid item xs={12} mt={6} className="post-widget--wrapper">
+        <Box sx={{ width: '100% !important', overflow: 'hidden', maxWidth: { md: 'auto', xs: 'calc(100vw - 32px)' } }}>
+          <PostWidget categories={currentCategory} slug={currentCategory[0]} />
+        </Box>
+      </Grid>
     </Root>
   )
 }

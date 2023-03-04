@@ -2,6 +2,7 @@ import { Box, Grid, Link as MuiLink, Tooltip, styled } from '@mui/material'
 import { memo, useEffect, useState } from 'react'
 
 import { getSocialMedia } from '@/shared/api/home.api'
+import { SocialMediaProps } from '@/shared/types/home'
 
 const Root = styled(Box)(({ theme }) => ({
   height: 'max-content',
@@ -22,10 +23,11 @@ const Root = styled(Box)(({ theme }) => ({
 }))
 
 export const SocialMedia = memo(() => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<SocialMediaProps[]>([])
+
   useEffect(() => {
-    getSocialMedia().then((res: any) => {
-      setData(res.socialMedias)
+    getSocialMedia().then((res: SocialMediaProps[]) => {
+      setData(res)
     })
   }, [])
 
@@ -34,16 +36,16 @@ export const SocialMedia = memo(() => {
       <Box className="social-media--divider" />
 
       <Grid container spacing={2}>
-        {data.map((socialMediaItem: any) => (
+        {data.map((socialMediaItem: SocialMediaProps) => (
           <Grid item key={socialMediaItem.id}>
             <Tooltip title={socialMediaItem.title}>
               <MuiLink
-                href={socialMediaItem.href}
+                href={socialMediaItem.link}
                 className="social-media--item unstyled"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={socialMediaItem.icon.url} alt={socialMediaItem.icon.name} />
+                <img src={socialMediaItem.icon.url} alt={socialMediaItem.icon.fileName} />
               </MuiLink>
             </Tooltip>
           </Grid>

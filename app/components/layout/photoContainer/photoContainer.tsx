@@ -2,6 +2,8 @@ import { Box, Grid, styled } from '@mui/material'
 import Image from 'next/image'
 import { FC } from 'react'
 
+import { PhotoContainerProps } from '@/shared/types/home'
+
 const Root = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     position: 'absolute',
@@ -74,7 +76,7 @@ const Root = styled(Grid)(({ theme }) => ({
   },
 }))
 
-export const PhotoContainer: FC = ({ mainPhoto, position, photoBG, size, shift, className }: any) => (
+export const PhotoContainer: FC<PhotoContainerProps> = ({ mainPhoto, position, photoBG, size, shift, className }) => (
   <Root
     className={`photo-container photo-container--${position} ${className || ''}`}
     sx={{

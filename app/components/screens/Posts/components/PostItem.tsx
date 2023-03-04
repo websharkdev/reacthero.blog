@@ -1,11 +1,17 @@
-import { Box, Button, Chip, Grid, IconButton, Typography, styled } from '@mui/material'
+import { Box, Button, Chip, Divider, Grid, IconButton, Typography, styled, useMediaQuery } from '@mui/material'
+import moment from 'moment'
 import Image from 'next/image'
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
+
+import { PostItemProps } from '@/shared/types/home'
 
 import { LikeActiveIcon, LikeOnActiveIcon } from '@/assets/icons/ui'
 
+import { PostCopyLink } from './PostLinks'
+
 type Props = {
-  data: any
+  data: PostItemProps
+  simplified?: boolean
 }
 
 const Root = styled(Grid)(({ theme }) => ({
@@ -15,25 +21,38 @@ const Root = styled(Grid)(({ theme }) => ({
   height: 'max-content',
   position: 'relative',
   zIndex: 10,
+  '& .post-item--image': {
+    width: '100%',
+    // [theme.breakpoints.down('md')]: {
+    //   padding: 20,
+    // },
+  },
 }))
 
-export const PostItem: FC<Props> = ({ data }) => {
+export const PostItem: FC<Props> = ({ data, simplified }) => {
   const [like, setLike] = useState<boolean>(false)
 
   const handleLike = () => {
     setLike(!like)
   }
+  const tablet = useMediaQuery((theme) =>
+    // @ts-ignore
+    theme.breakpoints.down('md')
+  )
   return (
     <Box sx={{ position: 'relative' }}>
       <Box
         className="post-image--container"
         sx={{
           position: 'relative',
-          right: '-50px',
-          top: '-30px',
+          right: { xs: 0, md: simplified ? 0 : '-50px' },
+          top: { xs: 0, md: simplified ? 0 : '-30px' },
+          padding: { xs: 2, md: simplified ? 2 : 0 },
+          background: 'transparent',
           '&::before': {
             content: '""',
             width: '100%',
+            display: { xs: 'none', md: !simplified ? 'flex' : 'none' },
             height: '90%',
             background: '#fff',
             position: 'absolute',
@@ -46,46 +65,89 @@ export const PostItem: FC<Props> = ({ data }) => {
         <img
           src={data.featuredImage.url}
           alt={data.slug}
-          width="100%"
+          className="post-item--image"
           style={{
+            width: '100%',
             position: 'relative',
             zIndex: 11,
           }}
         />
+        {tablet && data.hashtag && data.hashtag.length > 0 && (
+          <Box
+            sx={{
+              position: 'absolute',
+              right: 25,
+              bottom: 25,
+              zIndex: 15,
+            }}
+          >
+            <Chip sx={{ width: 'max-content' }} size="small" label={`#${data.hashtag[data.hashtag.length - 1]?.tag}`} />
+          </Box>
+        )}
       </Box>
       <Root container rowSpacing={4}>
         <Grid
           item
           xs={12}
-          sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0 !important' }}
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            paddingTop: { xs: 'auto', md: '0 !important' },
+            flexDirection: { sm: 'column', md: 'row' },
+          }}
         >
           <Typography variant="h6">{data.title}</Typography>
+          {!tablet && data.hashtag && data.hashtag.length > 0 && (
+            <Chip sx={{ width: 'max-content' }} label={`#${data.hashtag[data.hashtag.length - 1]?.tag}`} />
+          )}
         </Grid>
+        <Grid item xs={12} children={<Divider />} />
         <Grid item xs={12}>
           <Typography variant="body2" sx={{ minHeight: 156 }}>
             {data.excerpt.length > 175 ? `${data.excerpt.slice(0, 175)}...` : data.excerpt}
           </Typography>
+          <Divider />
+        </Grid>
+        <Grid item xs={12}>
+          <Box sx={{ display: 'flex', columnGap: 1 }}>
+            <Typography variant="body2" fontSize={12}>
+              {moment(data.createdAt).fromNow()}
+            </Typography>
+            <Typography variant="body2" fontSize={12}>
+              • {Math.ceil(JSON.stringify(data.content.raw).trim().split(/\s+/).length / 155)} min. read
+            </Typography>
+          </Box>
         </Grid>
 
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Button variant="text" href={`/post/${data.slug}`}>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Button variant="text" size={tablet ? 'small' : 'medium'} href={`/post/${data.slug}`}>
             риад море.
           </Button>
 
-          <IconButton
-            onClick={handleLike}
+          <Box
             sx={{
-              ':hover svg path': {
-                fill: '#ff0000',
-              },
+              display: 'flex',
+              columnGap: 2,
+              alignItems: 'center',
             }}
           >
-            {like ? (
-              <Image src={LikeActiveIcon} alt="active-like" width={24} height={24} />
-            ) : (
-              <Image src={LikeOnActiveIcon} alt="onactive-like" width={24} height={24} />
-            )}
-          </IconButton>
+            <PostCopyLink path={`/post/${data.slug}`} />
+            <IconButton onClick={handleLike}>
+              {like ? (
+                <Image src={LikeActiveIcon} alt="active-like" height={24} width={30} />
+              ) : (
+                <Image src={LikeOnActiveIcon} alt="onactive-like" height={24} width={30} />
+              )}
+            </IconButton>
+          </Box>
         </Grid>
       </Root>
     </Box>

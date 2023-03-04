@@ -3,9 +3,27 @@ import { FC } from 'react'
 
 import { PhotoContainer } from '@/components/layout/photoContainer'
 
+import { PhotoContainerProps } from '@/shared/types/home'
+
 import { HeaderScroll } from './HeaderScroll'
 
-type Props = {}
+type Props = {
+  width?: number | 'max-content'
+  subtitle: React.ReactNode
+  text: string
+  // image component
+  photoBG?: PhotoContainerProps['photoBG']
+  mainPhoto?: PhotoContainerProps['mainPhoto']
+  position?: PhotoContainerProps['position']
+  shift?: PhotoContainerProps['shift'] | 'unstyled'
+  size?: PhotoContainerProps['size']
+  // title component
+  title: React.ReactNode
+  titleLink?: string
+  link?: string
+  action?: null | React.ReactNode
+  className?: string
+}
 
 const Root = styled(Grid)(({ theme }) => ({
   width: '100%',
@@ -103,7 +121,7 @@ const TitleWrapper = styled(Box)(({ theme }) => ({
   },
 }))
 
-export const HeaderWrapper: FC = ({
+export const HeaderWrapper: FC<Props> = ({
   subtitle,
   photoBG,
   mainPhoto,
@@ -117,7 +135,7 @@ export const HeaderWrapper: FC = ({
   width,
   action,
   className,
-}: any) => {
+}) => {
   const tablet = useMediaQuery((theme) =>
     //   @ts-ignore
     theme.breakpoints.down('md')
@@ -146,14 +164,14 @@ export const HeaderWrapper: FC = ({
             </Box>
           </Grid>
         )}
-        {/* <PhotoContainer
+        <PhotoContainer
           mainPhoto={mainPhoto}
           photoBG={photoBG}
           position={position}
           size={size}
           shift={shift === 'unstyled' ? { xs: [0, 0] } : shift}
           className={className ? `${className}--photo_container` : ''}
-        /> */}
+        />
         <Grid item sx={{ height: { xs: 'max-content', md: 'auto' } }} xs={12} lg={7} xl={5}>
           <Box className="header-wrapper--contentWrapper">
             <Box className="header-wrapper--textBox">
@@ -163,11 +181,13 @@ export const HeaderWrapper: FC = ({
               </Typography>
             </Box>
             <TitleWrapper>
-              <Box component="div" width={{ xs: '100%', md: 500, lg: width || 700 }}>
+              <Box component="div" width={{ xs: '100%', md: 500, lg: width ? width : 700 }}>
                 <Typography component="span" variant="h1" className={`title ${link ? 'title_container' : null}`}>
                   {title}
                 </Typography>
-                {action || (
+                {action ? (
+                  action
+                ) : (
                   <Button
                     sx={{ ml: { xs: 0, sm: 4 }, mb: { xs: 0, sm: 4 }, mt: { xs: 1.5, sm: 0 } }}
                     size={tablet ? 'medium' : 'large'}

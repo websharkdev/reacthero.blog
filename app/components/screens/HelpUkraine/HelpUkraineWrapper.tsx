@@ -1,15 +1,12 @@
 import { Divider, Grid, styled } from '@mui/material'
-import { FC, useState } from 'react'
-import { useLanguage } from 'shared/hooks/useLanguage'
-import { LanguageProps } from 'shared/types/home'
+import { FC } from 'react'
 
-import { HeaderWrapper } from '@/components/layout/header/HeaderWrapper'
+import { HeaderWrapper } from '@/components/layout/header'
 
-import { HeaderBG } from '@/assets/icons/backgrounds'
-
-import { helpUkraineEN, helpUkraineRU } from '../Home/data'
+import { ContactsBG } from '@/assets/icons/backgrounds'
 
 import { HelpUkraineAbout, HelpUkraineFinancially } from './components'
+import { data } from './data'
 
 type Props = {}
 
@@ -18,29 +15,47 @@ const Root = styled(Grid)(({ theme }) => ({
 }))
 
 export const HelpUkraineWrapper: FC<Props> = (props) => {
-  const [language, setLanguage] = useState<LanguageProps>('en')
-  const [ukraine_data, setUkraine_data] = useState(helpUkraineEN)
-
-  useLanguage({
-    dataEN: helpUkraineEN,
-    dataRU: helpUkraineRU,
-    setData: setUkraine_data,
-    language,
-    setLanguage,
-  })
   return (
     <Root container rowSpacing={10}>
       <Grid item xs={12}>
-        {/* <Hw */}
+        <HeaderWrapper
+          subtitle={
+            <>
+              Ukraine.
+              <br />
+              War.
+              <br />
+              Genocide.
+            </>
+          }
+          photoBG={ContactsBG}
+          position="background"
+          shift={'unstyled'}
+          size={{
+            xs: [256, 256],
+            sm: [440, 440],
+            md: [500, 500],
+          }}
+          width={950}
+          title={
+            <>
+              Support Ukraine.
+              <br />
+              Stand with us!
+            </>
+          }
+          text={`While you're reading this page, Russia wages a genocidal war against Ukraine — destroying homes, ripping
+                apart families, and taking away lives. Be on the right side of history, help us defend our freedom!`}
+        />
         <Divider />
       </Grid>
 
       <Grid item xs={12}>
-        <HelpUkraineAbout data={ukraine_data} />
+        <HelpUkraineAbout data={data} />
         <Divider />
       </Grid>
       <Grid item xs={12}>
-        <HelpUkraineFinancially data={ukraine_data.financially} />
+        <HelpUkraineFinancially financially={data.financially} />
       </Grid>
     </Root>
   )

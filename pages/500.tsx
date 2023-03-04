@@ -12,7 +12,7 @@ const Error500: NextPage = () => (
   <Meta title="Server-side error">
     <Layout>
       <Box sx={{ width: '100%', position: 'relative', px: 6 }}>
-        {/* <HeaderWrapper
+        <HeaderWrapper
           subtitle="creative developer"
           photoBG={HeaderBG}
           position="background"
@@ -25,7 +25,7 @@ const Error500: NextPage = () => (
           width={950}
           title="500 - Server-side error occurred"
           text="Some things went wrong. Server-side error occurred. Try again litle bit later."
-        /> */}
+        />
       </Box>
     </Layout>
   </Meta>

@@ -1,5 +1,4 @@
 import {
-  Box,
   TableCell as MuiTableCell,
   TableRow as MuiTableRow,
   Paper,
@@ -8,7 +7,7 @@ import {
   TableContainer,
   Typography,
 } from '@mui/material'
-import { FC, Fragment, useEffect } from 'react'
+import { FC, Fragment } from 'react'
 
 import { rawTypeProps } from '@/shared/types/home'
 

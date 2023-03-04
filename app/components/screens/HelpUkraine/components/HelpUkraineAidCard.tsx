@@ -1,8 +1,10 @@
 import { Box, Grid, Link as MuiLink, Typography, styled } from '@mui/material'
 import { FC } from 'react'
 
+import { HelpAidProps, LinkProps } from '@/shared/types/home'
+
 type Props = {
-  data: any
+  data: HelpAidProps
 }
 
 const Root = styled(Grid)(({ theme }) => ({
@@ -17,36 +19,47 @@ const Root = styled(Grid)(({ theme }) => ({
     position: 'relative',
     '& .aid-image': {
       width: '100%',
-      height: 'max-contentn',
-      maxHeight: 200,
+      height: 'max-content',
+      maxHeight: 220,
       overflow: 'hidden',
       borderRadius: theme.shape.borderRadius,
     },
   },
+  '& .aid-text': {
+    minHeight: 90,
+  },
 }))
 
 export const HelpUkraineAidCard: FC<Props> = ({ data }) => {
-  const { title, text, image, link } = data
+  const { name, text, image, link, read_more } = data
   return (
     <Root container className="aid-wrapper" rowSpacing={4}>
       <Grid item xs={12} className="aid-title-container">
         <Typography variant="h3" className="aid-title">
-          {title}
+          {name}
         </Typography>
       </Grid>
       <Grid item xs={12} className="aid-text-container">
         <Typography variant="body2" className="aid-text">
           {text}
         </Typography>
+
+        <Box sx={{ gap: 2, display: 'flex', mt: 4 }}>
+          {read_more.map((item: LinkProps) => (
+            <MuiLink href={item.href} className="parallax-link--children-item" key={item.id}>
+              {item.name}
+            </MuiLink>
+          ))}
+        </Box>
       </Grid>
       <Grid item xs={12} className="aid-image-container">
         <Box className="aid-image">
-          <img src={image} alt={title} width="100%" height="max-content" />
+          <img src={image} alt={name} style={{ aspectRatio: '16/9', width: '100%' }} />
         </Box>
       </Grid>
       <Grid item xs={12} className="aid-link-container">
-        <MuiLink href={link.link} className="parallax-link--children-item">
-          {link.title}
+        <MuiLink href={link.href} className="parallax-link--children-item">
+          {link.name}
         </MuiLink>
       </Grid>
     </Root>

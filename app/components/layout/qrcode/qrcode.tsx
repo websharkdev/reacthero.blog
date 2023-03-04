@@ -1,9 +1,9 @@
 import { Link as MuiLink, styled } from '@mui/material'
-import Image from 'next/image'
+import Image, { ImageProps } from 'next/image'
 import { CSSProperties, FC } from 'react'
 
 type Props = {
-  children: any
+  children: ImageProps
   link: string
   styles?: CSSProperties
 }
@@ -18,6 +18,7 @@ const Root = styled(MuiLink)(({ theme }) => ({
 
 export const QRCode: FC<Props> = ({ children, link, styles }) => (
   <Root href={link} className="unstyled" sx={styles}>
+    {/* @ts-ignore */}
     <Image src={children} alt="qr-code" />
   </Root>
 )

@@ -1,9 +1,10 @@
 import { Box, Grid, Link as MuiLink, styled } from '@mui/material'
-// import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 
-import { getCategories, getSimilarPosts } from '@/shared/api/home.api'
-import { MenuItem } from '@/shared/types/home'
+import { getCategories } from '@/shared/api/home.api'
+import { CategoryRelatedItemProps, MenuItemProps } from '@/shared/types/home'
+
+import { MenuWrapperList } from './MenuWrapperList'
 
 type Props = {
   variant?: 'footer' | 'header'
@@ -37,15 +38,21 @@ const Root = styled(Grid)(({ theme }) => ({
 }))
 
 export const MenuWrapper: FC<Props> = ({ variant = 'header' }) => {
-  const [menu, setMenu] = useState<MenuItem[]>([])
+  const [menu, setMenu] = useState<MenuItemProps[]>([])
   const [uniq, setUniq] = useState<string[]>([])
   useEffect(() => {
-    getCategories().then((res: MenuItem[]) => {
+    getCategories().then((res: MenuItemProps[]) => {
       setMenu(res)
-      console.log(res)
+
+      const uniq_category: CategoryRelatedItemProps[] = []
+
+      res.map((item: MenuItemProps) => {
+        // @ts-ignore
+        item.categoryRelateds.map((category) => uniq_category.push(category.title))
+      })
 
       // @ts-ignore
-      setUniq([...new Set(res.map((item: MenuItem) => item.relate))])
+      setUniq([...new Set(uniq_category)])
     })
   }, [])
   return (
@@ -54,40 +61,28 @@ export const MenuWrapper: FC<Props> = ({ variant = 'header' }) => {
         <MuiLink href="/">домашняя.</MuiLink>
       </Grid>
       <Grid item xs={6}>
-        <MuiLink href="/">посты.</MuiLink>
+        <MuiLink href="/posts">посты.</MuiLink>
       </Grid>
-      <Grid item xs={6} sx={{ order: variant === 'footer' ? 100 : 0, display: 'flex', columnGap: 3 }}>
+      <Grid
+        item
+        sm={variant === 'footer' ? 6 : 12}
+        xs={12}
+        sx={{ order: variant === 'footer' ? 100 : 0, display: 'flex', columnGap: { xs: 1.5, md: 3 } }}
+      >
         <Box className="menu-wrapper--categories-divider" />
-        <Grid container rowGap={4} wrap="nowrap" direction="column">
-          {/* {uniq.map((prop: string, index: number) => (
+        <Grid container rowGap={1} wrap="nowrap" direction="column">
+          {uniq.map((prop: string, index: number) => (
             <Grid item key={index}>
-              {prop}
-
-              <Grid container>
-                {menu.map((item: MenuItem) => (
-                  <>
-                    {item.relate === prop ? (
-                      <Grid item xs={12} ml={4} mt={4} key={item.id}>
-                        <MuiLink href={item.slug}>{item.name}</MuiLink>
-                      </Grid>
-                    ) : null}
-                  </>
-                ))}
-              </Grid>
-            </Grid>
-          ))} */}
-          {menu.map((item: MenuItem) => (
-            <Grid item xs={12} key={item.id}>
-              <MuiLink href={`/category/${item.slug}`}>{item.name}</MuiLink>
+              <MenuWrapperList title={prop} menu={menu} />
             </Grid>
           ))}
         </Grid>
       </Grid>
       <Grid item xs={6}>
-        <MuiLink href="/">кофейку.</MuiLink>
+        <MuiLink href="/#buymeacoffe">кофейку.</MuiLink>
       </Grid>
       <Grid item xs={6}>
-        <MuiLink href="/">помочь Украине</MuiLink>
+        <MuiLink href="/helpUkraine">помочь Украине</MuiLink>
       </Grid>
     </Root>
   )
