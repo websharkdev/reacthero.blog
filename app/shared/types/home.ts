@@ -7,7 +7,7 @@ export interface Image {
 }
 
 export interface ImageHelpUkraineProps {
-  id: number
+  id: string
   src: string
   alt: string
 }
@@ -189,16 +189,21 @@ export type PhotoContainerProps = {
 }
 
 export type HelpAidProps = {
-  id: number
+  id: string
   image: string
   link: LinkProps
   read_more: LinkProps[]
   text: string
-  title: string
+  name: string
 }
 
-export type HelpUkraineProps = {
+export type HelpUkraineFinanciallyProps = {
   aids: HelpAidProps[]
   section: string
+  text: string
+}
+
+export type ParallaxTextProps = {
+  id: string
   text: string
 }

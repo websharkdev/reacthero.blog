@@ -23,8 +23,7 @@ const PostPage: NextPage<Props> = ({ post }) => (
 export default PostPage
 
 // Fetch data at build time
-// @ts-ignore
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: { params: PostItemDetailsProps }) {
   const data = await getPostDetails(params.slug)
   return {
     props: {
@@ -36,8 +35,7 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const posts = await getPosts()
   return {
-    // @ts-ignore
-    paths: posts.map(({ node: { slug } }) => ({ params: { slug } })),
+    paths: posts.map(({ node: { slug } }: any) => ({ params: { slug } })),
     fallback: true,
   }
 }

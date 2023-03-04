@@ -55,7 +55,7 @@ export const HelpUkraineWrapper: FC<Props> = (props) => {
         <Divider />
       </Grid>
       <Grid item xs={12}>
-        <HelpUkraineFinancially data={data.financially} />
+        <HelpUkraineFinancially financially={data.financially} />
       </Grid>
     </Root>
   )

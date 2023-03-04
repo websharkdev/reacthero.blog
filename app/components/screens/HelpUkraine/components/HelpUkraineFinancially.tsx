@@ -8,14 +8,19 @@ import 'swiper/css/pagination'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import { HelpAidProps, HelpUkraineProps } from '@/shared/types/home'
+import {
+  HelpAidProps,
+  HelpUkraineFinanciallyProps,
+  ImageHelpUkraineProps,
+  ParallaxTextProps,
+} from '@/shared/types/home'
 
 import { HelpUkraineBlob } from '@/assets/icons/blobs'
 
 import { HelpUkraineAidCard } from './HelpUkraineAidCard'
 
 type Props = {
-  data: HelpUkraineProps
+  financially: HelpUkraineFinanciallyProps
 }
 
 const Root = styled(Grid)(({ theme }) => ({
@@ -44,8 +49,8 @@ const Root = styled(Grid)(({ theme }) => ({
   },
 }))
 
-export const HelpUkraineFinancially: FC<Props> = ({ data }) => {
-  const { section, text, aids } = data
+export const HelpUkraineFinancially: FC<Props> = ({ financially }) => {
+  const { section, text, aids } = financially
   const [slidesPerView, setSlidesPerView] = useState(4)
   const currentWidth = useWidth()
 

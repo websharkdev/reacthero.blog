@@ -14,7 +14,7 @@ import { memo, useRef } from 'react'
 import { LinkProps } from '../types/home'
 
 interface ParallaxProps {
-  data: LinkProps[]
+  data: LinkProps
   baseVelocity: number
   fontSize?: number
   inView?: boolean
@@ -46,20 +46,6 @@ const ParallaxBody = styled(Box)(({ theme }) => ({
   },
 }))
 
-const ParallaxLinkChildren = (NumberOfSpan: number, data: LinkProps[]) => (
-  <>
-    {[...Array(NumberOfSpan)].map((e, i) => (
-      <span key={i}>
-        {data.map((item: LinkProps) => (
-          <MuiLink href={item.href} key={item.id} mx={1.5} className="parallax-link--children-item">
-            {item.name}
-          </MuiLink>
-        ))}
-      </span>
-    ))}
-  </>
-)
-
 export const ParallaxLink = memo(({ data, baseVelocity = 100, fontSize, inView }: ParallaxProps) => {
   const baseX = useMotionValue(0)
   const { scrollY } = useScroll()
@@ -88,17 +74,25 @@ export const ParallaxLink = memo(({ data, baseVelocity = 100, fontSize, inView }
     baseX.set(baseX.get() + moveBy)
   })
 
-  const NumberOfSpan = 12 // Number of span (how many it's will repeat)
+  const NumberOfSpan = 15 // Number of span (how many it's will repeat)
 
   return (
     <ParallaxBody className="parallax">
       {inView ? (
         <motion.div className="scroller" style={{ x, fontSize: `${fontSize}px` }}>
-          {ParallaxLinkChildren(NumberOfSpan, data)}
+          {[...Array(NumberOfSpan)].map((e, i) => (
+            <MuiLink href={data.href} key={i} mx={1.5} className="parallax-link--children-item">
+              {data.name}
+            </MuiLink>
+          ))}
         </motion.div>
       ) : (
         <div className="scroller" style={{ fontSize: `${fontSize}px` }}>
-          {ParallaxLinkChildren(NumberOfSpan, data)}
+          {[...Array(NumberOfSpan)].map((e, i) => (
+            <MuiLink href={data.href} key={i} mx={1.5} className="parallax-link--children-item">
+              {data.name}
+            </MuiLink>
+          ))}
         </div>
       )}
     </ParallaxBody>

@@ -31,12 +31,12 @@ const Root = styled(Grid)(({ theme }) => ({
 }))
 
 export const HelpUkraineAidCard: FC<Props> = ({ data }) => {
-  const { title, text, image, link, read_more } = data
+  const { name, text, image, link, read_more } = data
   return (
     <Root container className="aid-wrapper" rowSpacing={4}>
       <Grid item xs={12} className="aid-title-container">
         <Typography variant="h3" className="aid-title">
-          {title}
+          {name}
         </Typography>
       </Grid>
       <Grid item xs={12} className="aid-text-container">
@@ -54,7 +54,7 @@ export const HelpUkraineAidCard: FC<Props> = ({ data }) => {
       </Grid>
       <Grid item xs={12} className="aid-image-container">
         <Box className="aid-image">
-          <img src={image} alt={title} style={{ aspectRatio: '16/9', width: '100%' }} />
+          <img src={image} alt={name} style={{ aspectRatio: '16/9', width: '100%' }} />
         </Box>
       </Grid>
       <Grid item xs={12} className="aid-link-container">
