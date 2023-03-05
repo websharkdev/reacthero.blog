@@ -15,6 +15,12 @@ type Props = {}
 
 const Root = styled(Grid)(({ theme }) => ({
   padding: `0 0 ${theme.spacing(15)} ${theme.spacing(12)}`,
+  [theme.breakpoints.down('xl')]: {
+    padding: theme.spacing(4),
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: '24px 20px',
+  },
   alignItems: 'flex-end',
   justifyContent: 'space-between',
   position: 'relative',
@@ -66,24 +72,24 @@ export const HomeHeader: FC<Props> = (props) => {
           rowSpacing={4}
           sx={{ flexWrap: { xs: 'wrap', xl: 'nowrap' } }}
         >
-          <Grid item xs={4}>
-            <Button variant="contained" size={tablet ? 'small' : 'large'}>
+          <Grid item xs={4} lg={3}>
+            <Button variant="contained" href="/posts" size={tablet ? 'small' : 'large'}>
               читать.
             </Button>
           </Grid>
-          {currentWidth === 'xl' && (
-            <Grid item>
+          {currentWidth !== 'xs' && currentWidth !== 'sm' && (
+            <Grid item lg={1}>
               <QRCode link="#" children={HeaderQRCode} styles={{ maxWidth: 50, maxHeight: 50 }} />
             </Grid>
           )}
-          {currentWidth === 'xl' && (
-            <Grid item>
+          {currentWidth !== 'xs' && currentWidth !== 'sm' && (
+            <Grid item lg={4}>
               <Typography variant="body2" className="home-header--subtext">
                 нету смысла сканировать этот qr-код. там ничего интересного не написано
               </Typography>
             </Grid>
           )}
-          <Grid item xs={12} sm={8} sx={{ order: { xs: -5, sm: 0 } }}>
+          <Grid item xs={12} sm={8} lg={4} sx={{ order: { xs: -5, sm: 0 } }}>
             <Typography variant="body2" className="home-header--subtext">
               ну и да, возможно не первый, ведь я не знаю что у вас там, но давайте пропустим этот момент.
             </Typography>

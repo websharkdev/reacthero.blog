@@ -13,11 +13,12 @@ import { BlockProps, PostItemProps } from '@/shared/types/home'
 const Root = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(8),
   overflow: 'hidden',
-  [theme.breakpoints.down('lg')]: {
-    padding: theme.spacing(8),
+
+  [theme.breakpoints.down('xl')]: {
+    padding: theme.spacing(4),
   },
-  [theme.breakpoints.down('md')]: {
-    padding: 0,
+  [theme.breakpoints.down('sm')]: {
+    padding: '24px 20px',
   },
 }))
 
