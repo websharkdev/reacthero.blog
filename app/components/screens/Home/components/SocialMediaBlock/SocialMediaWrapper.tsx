@@ -22,9 +22,15 @@ const Root = styled(Grid)(({ theme }) => ({
   justifyContent: 'space-between',
   height: 'max-content',
   [theme.breakpoints.down('md')]: {
-    padding: 0,
     alignItems: 'flex-start',
     height: 600,
+  },
+
+  [theme.breakpoints.down('xl')]: {
+    padding: theme.spacing(4),
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: '24px 20px',
   },
   '& .sm-image--star': {
     position: 'absolute',
@@ -44,13 +50,15 @@ export const SocialMediaWrapper: FC<BlockProps> = ({ index, enName, name }) => {
     theme.breakpoints.down('sm')
   )
   return (
-    <Root container rowSpacing={tablet ? 4 : 6} columnSpacing={6}>
+    <Root container rowSpacing={tablet ? 4 : 6} columnSpacing={4}>
       <Grid item xs={12}>
         <SectionHeader index={index} enName={enName} name={name} />
       </Grid>
-      <Grid item md={4} sx={{ pl: '0 !important' }}>
-        {!tablet && <SocialMediaPhone />}
-      </Grid>
+      {!tablet && (
+        <Grid item md={4}>
+          <SocialMediaPhone />
+        </Grid>
+      )}
       <Grid item xs={12} md={6} lg={8} flex={1}>
         {phone ? (
           <Swiper>

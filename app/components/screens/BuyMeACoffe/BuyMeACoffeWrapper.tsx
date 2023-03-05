@@ -12,8 +12,12 @@ const Root = styled(Grid)(({ theme }) => ({
   position: 'relative',
   alignItems: 'flex-start',
   height: 1200,
-  [theme.breakpoints.down('md')]: {
-    padding: `${theme.spacing(8)} 0`,
+
+  [theme.breakpoints.down('xl')]: {
+    padding: theme.spacing(4),
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: '24px 20px',
   },
   '& .sm-image--star': {
     position: 'absolute',

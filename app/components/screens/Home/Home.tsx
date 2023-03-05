@@ -19,15 +19,6 @@ const Root = styled(Grid)(({ theme }) => ({
   position: 'relative',
   overflow: 'hidden',
   paddingBottom: theme.spacing(12),
-  '& .container-fluid': {
-    width: '100%',
-  },
-  '& .container': {
-    width: 'calc(100% - 68px)',
-    [theme.breakpoints.down('md')]: {
-      width: 'calc(100% - 32px)',
-    },
-  },
 }))
 
 interface HomeBlockProps extends BlockProps {
@@ -47,7 +38,7 @@ export const Home: FC<Props> = (props) => {
       </Grid>
 
       {HomePageData.map((block: HomeBlockProps) => (
-        <Grid item xs={12} className="container" key={block.index}>
+        <Grid item xs={12} key={block.index}>
           {block.component === 'IntroWrapper' && (
             <IntroWrapper index={`0${+block.index + 1}`} enName={block.enName} name={block.name} />
           )}

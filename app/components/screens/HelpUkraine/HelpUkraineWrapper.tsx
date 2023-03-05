@@ -12,6 +12,12 @@ type Props = {}
 
 const Root = styled(Grid)(({ theme }) => ({
   padding: `${theme.spacing(4)}`,
+  [theme.breakpoints.down('xl')]: {
+    padding: theme.spacing(4),
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: '24px 20px',
+  },
 }))
 
 export const HelpUkraineWrapper: FC<Props> = (props) => {

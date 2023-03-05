@@ -18,7 +18,7 @@ const Root = styled(Grid)(({ theme }) => ({
   '& .footer-leftSide': {
     display: 'flex',
     alignItems: 'flex-end',
-    background: '#DBFF5D',
+    background: '#C1E27D',
     padding: `${theme.spacing(11)} ${theme.spacing(5)} ${theme.spacing(4)} ${theme.spacing(5)}`,
     [theme.breakpoints.down('md')]: {
       padding: `${theme.spacing(11)} ${theme.spacing(2.5)} ${theme.spacing(4)} ${theme.spacing(2.5)}`,
