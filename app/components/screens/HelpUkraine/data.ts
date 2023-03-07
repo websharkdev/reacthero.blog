@@ -40,7 +40,7 @@ export const data = {
   text: [
     {
       id: '0',
-      text: `My name is Olekii, I'm a frontend developer from Irpin (city close to Kyiv), Ukraine.`,
+      text: `My name is Oleksii, I'm a frontend developer from Irpin (city close to Kyiv), Ukraine.`,
     },
     {
       id: '1',
